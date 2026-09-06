@@ -223,7 +223,7 @@ export function createDataProvider(config) {
         sourceLabel,
         sourceMode: 'primary',
         warning:
-          'Base Sepolia RPC is currently unavailable. Indexed tGFC Transfer evidence remains available through The Graph, while receipt-dependent transaction facts are marked unavailable.',
+          'Transaction receipt data is currently unavailable from Base Sepolia RPC. Indexed tGFC Transfer evidence remains available through The Graph; receipt-dependent transaction facts are marked unavailable.',
         transaction: graphTransaction,
         accountability: buildAccountabilityModel(graphTransaction, {
           sourceLabel,
