@@ -62,10 +62,17 @@ function validatedUrl(name, fallback, { allowHttpLocalhost = false } = {}) {
     throw new Error(`${name} must be a valid URL.`);
   }
 
-  const localHttp = allowHttpLocalhost && url.protocol === 'http:' && ['127.0.0.1', 'localhost', '::1'].includes(url.hostname);
+  const localHttp =
+    allowHttpLocalhost &&
+    url.protocol === 'http:' &&
+    ['127.0.0.1', 'localhost', '::1'].includes(url.hostname);
+
   if (url.protocol !== 'https:' && !localHttp) {
-    throw new Error(`${name} must use HTTPS${allowHttpLocalhost ? ' (HTTP is allowed only for localhost)' : ''}.`);
+    throw new Error(
+      `${name} must use HTTPS${allowHttpLocalhost ? ' (HTTP is allowed only for localhost)' : ''}.`,
+    );
   }
+
   return url.toString().replace(/\/$/u, '');
 }
 
@@ -77,9 +84,23 @@ export function getConfig() {
     throw new Error('DATA_SOURCE_MODE must be auto, graph, or rpc.');
   }
 
+  const rawStudioQueryUrl = (process.env.GRAPH_STUDIO_QUERY_URL || '').trim();
+  const studioQueryUrl =
+    rawStudioQueryUrl && !rawStudioQueryUrl.startsWith('replace_')
+      ? validatedUrl('GRAPH_STUDIO_QUERY_URL', rawStudioQueryUrl)
+      : '';
+
   const subgraphId = (process.env.GRAPH_SUBGRAPH_ID || '').trim();
   const graphApiKey = (process.env.GRAPH_API_KEY || '').trim();
-  const graphConfigured = Boolean(subgraphId && graphApiKey && !subgraphId.startsWith('replace_') && !graphApiKey.startsWith('replace_'));
+
+  const gatewayConfigured = Boolean(
+    subgraphId &&
+      graphApiKey &&
+      !subgraphId.startsWith('replace_') &&
+      !graphApiKey.startsWith('replace_'),
+  );
+
+  const graphConfigured = Boolean(studioQueryUrl || gatewayConfigured);
 
   return Object.freeze({
     rootDir,
@@ -88,16 +109,31 @@ export function getConfig() {
     mode,
     graph: Object.freeze({
       configured: graphConfigured,
+      studioQueryUrl,
       subgraphId,
       apiKey: graphApiKey,
       gatewayUrl: validatedUrl('GRAPH_GATEWAY_URL', 'https://gateway.thegraph.com/api'),
     }),
     rpc: Object.freeze({
-      url: validatedUrl('BASE_SEPOLIA_RPC_URL', 'https://sepolia.base.org', { allowHttpLocalhost: true }),
-      lookbackBlocks: integerEnv('RPC_LOOKBACK_BLOCKS', 120000, { min: 1000, max: 2_000_000 }),
-      chunkBlocks: integerEnv('RPC_LOG_CHUNK_BLOCKS', 10000, { min: 100, max: 100000 }),
-      maxActivity: integerEnv('RPC_MAX_ACTIVITY', 40, { min: 1, max: 100 }),
+      url: validatedUrl('BASE_SEPOLIA_RPC_URL', 'https://sepolia.base.org', {
+        allowHttpLocalhost: true,
+      }),
+      lookbackBlocks: integerEnv('RPC_LOOKBACK_BLOCKS', 120000, {
+        min: 1000,
+        max: 2_000_000,
+      }),
+      chunkBlocks: integerEnv('RPC_LOG_CHUNK_BLOCKS', 10000, {
+        min: 100,
+        max: 100000,
+      }),
+      maxActivity: integerEnv('RPC_MAX_ACTIVITY', 40, {
+        min: 1,
+        max: 100,
+      }),
     }),
-    upstreamTimeoutMs: integerEnv('UPSTREAM_TIMEOUT_MS', 12000, { min: 1000, max: 60000 }),
+    upstreamTimeoutMs: integerEnv('UPSTREAM_TIMEOUT_MS', 12000, {
+      min: 1000,
+      max: 60000,
+    }),
   });
 }
