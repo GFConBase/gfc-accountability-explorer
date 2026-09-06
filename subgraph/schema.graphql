@@ -1,0 +1,12 @@
+"A single immutable ERC-20 Transfer event emitted by the public Base Sepolia tGFC pilot contract."
+type Transfer @entity(immutable: true) {
+  id: Bytes!
+  transactionHash: Bytes!
+  logIndex: BigInt!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  from: Bytes!
+  to: Bytes!
+  value: BigInt!
+  contract: Bytes!
+}
