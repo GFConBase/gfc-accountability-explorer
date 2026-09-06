@@ -28,3 +28,7 @@ desktop.ini
 audit-artifacts/
 playwright-report/
 test-results/
+
+# The Graph generated output
+subgraph/build/
+subgraph/generated/
