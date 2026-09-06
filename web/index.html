@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050913">
+  <meta name="description" content="GFC Accountability Explorer — read-only Base Sepolia accountability evidence for the public GFC pilot.">
+  <title>GFC Accountability Explorer</title>
+  <link rel="icon" type="image/png" href="/assets/logo-gfc.png">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="header-inner shell">
+      <a class="brand" href="/" aria-label="GFC Accountability Explorer home">
+        <img src="/assets/logo-gfc.png" alt="" width="48" height="48">
+        <span class="brand-copy">
+          <strong>GFC</strong>
+          <span>Accountability Explorer</span>
+        </span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#overview">Overview</a>
+        <a href="#activity">Activity</a>
+        <a href="#method">Method</a>
+      </nav>
+
+      <div class="header-status" aria-label="Network status">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>BASE SEPOLIA</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="overview" aria-labelledby="hero-title">
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow-row">
+            <span class="pill pill-testnet">PUBLIC PILOT</span>
+            <span class="pill pill-warning">TESTNET</span>
+            <span class="pill pill-muted">NOT MAINNET</span>
+          </div>
+          <p class="kicker">ETHOnline 2026 · Continuity build</p>
+          <h1 id="hero-title">Turn onchain activity into inspectable accountability evidence.</h1>
+          <p class="hero-lede">The Explorer separates what is visible, what it proves, and what remains unproven. A transaction is evidence of execution—not automatic proof of authority, compliance, purpose, outcome, or impact.</p>
+
+          <form class="search-panel" id="search-form" novalidate>
+            <label for="search-input">Search Base Sepolia</label>
+            <div class="search-row">
+              <input id="search-input" name="search" type="text" inputmode="text" autocomplete="off" spellcheck="false" maxlength="66" placeholder="Transaction hash or wallet address" aria-describedby="search-help search-error">
+              <button type="submit">Inspect</button>
+            </div>
+            <p id="search-help" class="field-help">Read-only. No wallet connection, signature, approval, or transaction is requested.</p>
+            <p id="search-error" class="field-error" role="alert" hidden></p>
+          </form>
+        </div>
+
+        <aside class="network-card" aria-labelledby="network-card-title">
+          <div class="card-heading-row">
+            <div>
+              <p class="card-kicker">Network boundary</p>
+              <h2 id="network-card-title">Public testnet pilot</h2>
+            </div>
+            <span class="live-indicator" id="source-health" data-state="checking">Checking</span>
+          </div>
+          <dl class="metadata-list">
+            <div><dt>Network</dt><dd>Base Sepolia</dd></div>
+            <div><dt>Chain ID</dt><dd class="mono">84532</dd></div>
+            <div><dt>Token</dt><dd>tGFC</dd></div>
+            <div><dt>Contract</dt><dd><a class="mono break-value" href="https://sepolia.basescan.org/address/0x7262Cca91938ede6bB6560F81104Aa410848e7f3" target="_blank" rel="noopener noreferrer">0x7262Cca91938ede6bB6560F81104Aa410848e7f3</a></dd></div>
+            <div><dt>Production GFC</dt><dd>Not deployed</dd></div>
+            <div><dt>Presale</dt><dd>Not live</dd></div>
+          </dl>
+          <p class="boundary-note">Source-verified pilot code is not an independent security audit and does not establish production readiness.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="evidence-principle-title">
+      <div class="shell">
+        <div class="section-heading narrow">
+          <p class="kicker">Evidence discipline</p>
+          <h2 id="evidence-principle-title">What is visible? What does it prove? What remains unproven?</h2>
+          <p>The interface keeps those questions separate by design. Missing evidence is displayed as a limitation, never silently converted into a fact.</p>
+        </div>
+        <div class="principle-grid" aria-label="Accountability evidence principles">
+          <article class="principle-card"><span class="step-index">01</span><h3>Visible</h3><p>Onchain records, indexed events, network metadata, transaction receipts and explicit public references.</p></article>
+          <article class="principle-card"><span class="step-index">02</span><h3>Proven</h3><p>Only the claims that follow directly from the available evidence and its authenticated scope.</p></article>
+          <article class="principle-card"><span class="step-index">03</span><h3>Unproven</h3><p>Authority, rules, decisions, purpose, outcomes or impact when the required evidence is absent.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="activity" aria-labelledby="activity-title">
+      <div class="shell">
+        <div class="section-heading-row">
+          <div class="section-heading">
+            <p class="kicker">Live activity layer</p>
+            <h2 id="activity-title">Activity overview</h2>
+            <p id="activity-context">Recent visible tGFC Transfer activity on Base Sepolia.</p>
+          </div>
+          <div class="source-box" aria-live="polite">
+            <span>Data source</span>
+            <strong id="active-source">Checking…</strong>
+          </div>
+        </div>
+
+        <div class="summary-grid" id="summary-grid" aria-label="Activity summary">
+          <article class="summary-card"><span>Visible transfers</span><strong id="summary-transfers">—</strong><small id="summary-transfer-note">Loading live data</small></article>
+          <article class="summary-card"><span>Visible addresses</span><strong id="summary-addresses">—</strong><small>Within the displayed result set</small></article>
+          <article class="summary-card"><span>Latest indexed / scanned block</span><strong id="summary-block" class="mono">—</strong><small>Source-dependent</small></article>
+          <article class="summary-card"><span>History scope</span><strong id="summary-scope">—</strong><small id="summary-scope-note">Loading source metadata</small></article>
+        </div>
+
+        <div id="activity-message" class="message" role="status" hidden></div>
+
+        <div class="table-card" aria-labelledby="activity-table-title">
+          <div class="table-card-header">
+            <div><p class="card-kicker">Inspectable events</p><h3 id="activity-table-title">tGFC transfers</h3></div>
+            <button class="button-secondary" id="refresh-activity" type="button">Refresh</button>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th scope="col">Time</th><th scope="col">From</th><th scope="col">To</th><th scope="col">Amount</th><th scope="col">Block</th><th scope="col">Evidence</th></tr></thead>
+              <tbody id="activity-body"></tbody>
+            </table>
+          </div>
+          <div id="activity-empty" class="empty-state" hidden>
+            <strong>No visible transfers in this result set.</strong>
+            <p>This does not prove that no historical activity exists. The active source and its scope determine what can be shown.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="transaction-section" aria-labelledby="transaction-title" hidden>
+      <div class="shell">
+        <div class="section-heading-row">
+          <div class="section-heading">
+            <p class="kicker">Transaction analysis</p>
+            <h2 id="transaction-title">Accountability detail</h2>
+            <p>Six evidence domains are evaluated independently. A stronger state in one domain does not upgrade the others.</p>
+          </div>
+          <button class="button-secondary" id="close-transaction" type="button">Close detail</button>
+        </div>
+        <div id="transaction-message" class="message" role="status" hidden></div>
+        <div id="transaction-content"></div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="method" aria-labelledby="method-title">
+      <div class="shell method-grid">
+        <div class="section-heading">
+          <p class="kicker">Accountability model</p>
+          <h2 id="method-title">Funds → Authority → Rules → Decisions → Outcomes → Evidence</h2>
+          <p>This six-part model predates ETHOnline and belongs to the existing GFC transparency architecture. The new hackathon work is the Explorer that maps live blockchain records into these explicit evidence states.</p>
+        </div>
+        <div class="method-card">
+          <p class="card-kicker">Verification vocabulary</p>
+          <ul class="status-key">
+            <li><span class="verification-badge state-verified">Verified</span><span>Evidence directly supports the stated claim within the displayed scope.</span></li>
+            <li><span class="verification-badge state-partial">Partially verifiable</span><span>Some technical facts are supported while broader claims remain unproven.</span></li>
+            <li><span class="verification-badge state-unverified">Not verifiable</span><span>The required evidence is not present in the available data.</span></li>
+            <li><span class="verification-badge state-unavailable">Unavailable</span><span>A required source or record is unavailable.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div class="footer-brand-block">
+        <div class="brand footer-brand"><img src="/assets/logo-gfc.png" alt="" width="44" height="44"><span class="brand-copy"><strong>GFC</strong><span>Global Foundation Coin</span></span></div>
+        <p>Read-only ETHOnline 2026 Continuity build. Public Base Sepolia pilot only. Not Mainnet. No token sale or wallet action occurs in this Explorer.</p>
+      </div>
+      <nav class="footer-links" aria-label="Project links">
+        <a href="https://globalfoundationcoin.org/" target="_blank" rel="noopener noreferrer">GFC Website</a>
+        <a href="https://github.com/GFConBase/gfc-infrastructure" target="_blank" rel="noopener noreferrer">Infrastructure</a>
+        <a href="https://github.com/GFConBase/gfc-accountability-explorer" target="_blank" rel="noopener noreferrer">Explorer repository</a>
+        <a href="https://sepolia.basescan.org/address/0x7262Cca91938ede6bB6560F81104Aa410848e7f3" target="_blank" rel="noopener noreferrer">BaseScan pilot</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
