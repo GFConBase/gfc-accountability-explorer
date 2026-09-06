@@ -45,7 +45,7 @@ export function renderTransaction(container, result) {
     ['Block', formatInteger(tx.blockNumber)],
     ['Timestamp', formatDate(tx.timestamp)],
     ['From', tx.from || 'Unavailable'],
-    ['To', tx.to || 'Contract creation / unavailable'],
+    ['To', tx.to || 'Unavailable'],
     ['Data source', result.sourceLabel],
   ];
   for (const [label, value] of items) {
