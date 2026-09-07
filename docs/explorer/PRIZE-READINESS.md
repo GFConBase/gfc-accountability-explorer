@@ -52,8 +52,8 @@ Qualification-oriented implementation properties:
 - The deterministic GFC evidence model remains authoritative.
 - The AI cannot upgrade verification states.
 - The AI is not itself an evidence source.
-- server-side secrets are kept out of browser JavaScript.
-- the source and Continuity boundary are documented publicly.
+- Server-side secrets are kept out of browser JavaScript.
+- The source and Continuity boundary are documented publicly.
 
 ## Live demo transaction
 
@@ -72,11 +72,16 @@ The expected evidence discipline is:
 
 ## Repository synchronization status
 
-This archive is the synchronized standalone ETHOnline repository snapshot generated from the live integrated Explorer source after the production deployment and subdomain validation on 2026-09-07.
+The synchronized standalone ETHOnline repository state was committed and published on **2026-09-07**.
+
+Current public repository:
+
+`https://github.com/GFConBase/gfc-accountability-explorer`
+
+The repository reflects the production-integrated Explorer architecture and retains the existing Git history.
 
 ## Remaining submission work
 
-- upload/commit this synchronized repository state;
 - record a concise 2–4 minute demo video;
 - prepare final ETHGlobal description and submission fields;
 - explicitly select the applicable Continuity prize/pool;
