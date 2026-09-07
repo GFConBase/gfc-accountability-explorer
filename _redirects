@@ -1,0 +1,21 @@
+###############################################
+# STANDALONE ETHONLINE REPOSITORY ROUTING
+###############################################
+
+# Public production alias. In the unified GFC site this domain is attached to
+# the existing Netlify project and keeps the clean root URL.
+https://explorer.globalfoundationcoin.org/   /partials/en/explorer/explorer.html   200!
+
+# Same-origin read-only Explorer API.
+/api/explorer/*      /.netlify/functions/explorer-api?route=:splat       200!
+
+# Canonical language routes.
+/de/explorer/index.html   /de/explorer/                                  301!
+/de/explorer/             /partials/de/explorer/explorer.html             200!
+
+/en/explorer/index.html   /en/explorer/                                  301!
+/en/explorer/             /partials/en/explorer/explorer.html             200!
+
+# A standalone deployment of this focused repository opens the English Explorer
+# at its root. The production GFC project keeps its own main-site root behavior.
+/                       /partials/en/explorer/explorer.html                200!

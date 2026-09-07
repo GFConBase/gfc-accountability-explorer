@@ -1,23 +1,19 @@
 {
   "name": "gfc-accountability-explorer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
-  "description": "Read-only ETHOnline 2026 Continuity build for the GFC Accountability Explorer.",
+  "description": "ETHOnline 2026 Continuity repository for the live GFC Accountability Explorer and evidence-bounded Accountability Analyst.",
   "license": "MIT",
   "engines": {
     "node": ">=20"
   },
   "scripts": {
-    "dev": "node server/index.js",
-    "start": "node server/index.js",
-    "build": "node scripts/build.mjs",
+    "dev": "node tools/explorer-dev.mjs",
+    "start": "node tools/explorer-dev.mjs",
     "lint": "node scripts/lint.mjs",
-    "test": "node --test tests/*.test.js",
+    "test": "node --test tests/explorer/*.test.mjs",
     "security:check": "node scripts/security-audit.mjs",
-    "check": "npm run lint && npm test && npm run build && npm run security:check"
-  },
-  "devDependencies": {
-    "@graphprotocol/graph-ts": "0.38.2"
+    "check": "npm run lint && npm test && npm run security:check"
   }
 }

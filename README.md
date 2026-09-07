@@ -1,51 +1,49 @@
 # GFC Accountability Explorer
 
-**ETHOnline 2026 Continuity Track build for Global Foundation Coin (GFC).**
+**ETHOnline 2026 Continuity build for Global Foundation Coin (GFC).**
 
-The GFC Accountability Explorer is a new read-only Data / Analytics application that turns Base Sepolia blockchain activity into structured, human-readable **accountability evidence**.
+**Live demo:** https://explorer.globalfoundationcoin.org/
 
-It is deliberately not an Etherscan clone. Raw transaction fields remain visible, but the Explorer separately asks:
-
-- **Funds** — what financial/onchain movement is actually evidenced?
-- **Authority** — can authorization be established from available evidence?
-- **Rules** — can the applicable rules be verified for this action?
-- **Decisions** — is the underlying decision or approval evidenced?
-- **Outcomes** — what technical or documented result is established?
-- **Evidence** — which concrete records support the displayed claims?
-
-The central rule is:
+The GFC Accountability Explorer is a read-only Data / Analytics application that turns Base Sepolia activity into structured, human-readable accountability evidence. It is not an Etherscan clone: the interface separates what is visible onchain from what that evidence actually proves, and from what remains unverified.
 
 > **What is visible? What does it prove? What remains unproven?**
 
-Missing evidence is reported as a limitation. The application does not infer authority, policy compliance, purpose, beneficial outcome or real-world impact from a blockchain transaction alone.
+The deterministic evidence model is:
+
+**Funds → Authority → Rules → Decisions → Outcomes → Evidence**
+
+Missing evidence is displayed as a limitation. Transaction execution is never silently converted into proof of organizational authority, policy compliance, decision rationale, beneficial outcome, or real-world impact.
 
 ---
 
-## Current Implementation Status
+## Public status
 
 | Component | Status |
 |---|---|
-| Explorer web application | **Implemented** |
-| Read-only Node API | **Implemented** |
-| Base Sepolia transaction lookup | **Implemented** |
-| Base Sepolia recent Transfer activity | **Implemented** via bounded live RPC fallback |
-| Address activity filter | **Implemented** within active data-source scope |
-| Transaction accountability mapping | **Implemented** |
-| Verification-state UI | **Implemented** |
-| The Graph client / query layer | **Implemented / requires external configuration** |
-| GFC Transfer subgraph source | **Prepared / not deployed** |
-| Live GFC Graph provider | **Not available in this repository state** |
-| Accountability Analyst / AI | **Not implemented** |
+| Public Explorer | **Live** |
+| Production demo URL | **https://explorer.globalfoundationcoin.org/** |
+| English integrated route | **https://globalfoundationcoin.org/en/explorer/** |
+| German integrated route | **https://globalfoundationcoin.org/de/explorer/** |
+| Base Sepolia transaction lookup | **Live** |
+| Indexed Transfer activity | **Live via The Graph** |
+| Address activity | **Live via The Graph** |
+| Historical transaction fallback | **Live via Base Sepolia Blockscout when required** |
+| Accountability transformation model | **Implemented** |
+| Accountability Analyst / AI | **Live when server-side OpenAI key is configured** |
+| GFC Transfer Subgraph | **Deployed on Base Sepolia** |
+| The Graph as primary indexed source | **Live** |
 | Wallet connection | **Not implemented by design** |
-| Smart-contract writes | **Not implemented by design** |
+| Contract writes | **Not implemented by design** |
 | Base Mainnet GFC | **Not deployed** |
 | GFC presale | **Not live** |
 
+The production deployment is integrated into the main GFC website project. This standalone repository is the ETHOnline review/synchronization repository for the Explorer-specific source, Continuity disclosure, tests and commit history.
+
 ---
 
-## Network Boundary
+## Network boundary
 
-This Explorer is explicitly scoped to the existing public GFC testnet pilot:
+This build is scoped to the existing public GFC testnet pilot:
 
 | Property | Value |
 |---|---|
@@ -56,165 +54,161 @@ This Explorer is explicitly scoped to the existing public GFC testnet pilot:
 | Contract | `0x7262Cca91938ede6bB6560F81104Aa410848e7f3` |
 | Production status | **Non-production** |
 
-The existing `gfc-infrastructure` repository records the official Base Mainnet GFC token as **Not Deployed**, the presale as **Not Live**, and no completed independent production security audit.
+**BASE SEPOLIA · PUBLIC PILOT · TESTNET · NOT MAINNET**
 
-> **BASE SEPOLIA · PUBLIC PILOT · TESTNET · NOT MAINNET**
-
----
-
-## ETHOnline 2026 Continuity Track
-
-GFC existed before ETHOnline 2026.
-
-### Pre-existing work
-
-Pre-existing work includes the GFC project and brand, website, Transparency Portal, Base Sepolia pilot, infrastructure repository, token/economic documentation, governance and transparency documentation, roadmap, and the canonical model:
-
-**Funds → Authority → Rules → Decisions → Outcomes → Evidence**
-
-### New ETHOnline work
-
-This repository contains the new Explorer application, UI, data abstraction, RPC and Graph service layer, accountability transformation logic, search/filter behavior, verification states, prepared subgraph definition, tests, and ETHOnline-specific documentation.
-
-See [`CONTINUITY.md`](CONTINUITY.md) for the explicit boundary, including the single pre-existing brand asset reused in this application.
-
-ETHGlobal rules require Continuity projects to disclose pre-existing work and demonstrate substantive new work during the event:
-https://ethglobal.com/rules
+Source verification of pilot code is not an independent security audit and does not establish production readiness.
 
 ---
 
-## Architecture
+## Live data architecture
 
 ```text
 Browser (read-only)
-        ↓
-Explorer Node API
-        ↓
-  ┌──────────────────────┬─────────────────────────┐
-  │ The Graph            │ Base Sepolia JSON-RPC │
-  │ primary if configured│ bounded live fallback  │
-  └──────────┬───────────┴────────────┬────────────┘
-             ↓                        ↓
-        normalized blockchain evidence
-                     ↓
-          accountability mapping
-                     ↓
- Funds → Authority → Rules → Decisions → Outcomes → Evidence
-                     ↓
-             Explorer UI
+        |
+        v
+same-origin /api/explorer/*
+        |
+        v
+server-side provider layer
+   /          |             \
+  v           v              v
+The Graph   Base RPC     Blockscout
+primary     fallback     historical tx fallback
+  \           |              /
+   +----------+-------------+
+              |
+              v
+normalized evidence
+              |
+              v
+deterministic accountability mapping
+              |
+              v
+Funds / Authority / Rules / Decisions / Outcomes / Evidence
 ```
 
-The browser uses only same-origin `/api/*` routes. A Graph API key remains on the server and is never placed into client-side code.
+### The Graph
 
-See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+The deployed Subgraph Studio project is:
 
----
+`gfc-accountability-explorer`
 
-## Data Sources
+Public Studio query endpoint:
 
-### The Graph — primary when configured
+`https://api.studio.thegraph.com/query/1758809/gfc-accountability-explorer/version/latest`
 
-When both `GRAPH_SUBGRAPH_ID` and `GRAPH_API_KEY` are present, the server queries The Graph Gateway using fixed GraphQL documents for:
+The Graph is the primary indexed source for tGFC `Transfer` activity. The Activity Overview, address scope and transaction-event lookup consume that indexed data.
 
-- recent tGFC Transfer activity;
-- sent / received transfers for an address;
-- transfer events associated with a transaction.
+### Base Sepolia JSON-RPC
 
-The prepared custom subgraph lives in [`subgraph/`](subgraph/). It is **not deployed by this repository state**, so no Subgraph ID is invented or bundled.
+The normal Explorer can use read-only Base Sepolia JSON-RPC as a bounded fallback. The client validates chain ID `84532`, supports endpoint failover, finite timeouts and bounded log windows.
 
-### Base Sepolia JSON-RPC — live bounded fallback
+### Base Sepolia Blockscout
 
-With `DATA_SOURCE_MODE=auto` and no live Graph configuration, the app uses the official Base Sepolia RPC endpoint as a read-only fallback. It queries:
+When a public RPC cannot serve an older transaction-by-hash lookup, transaction detail may use Base Sepolia Blockscout as **secondary indexed historical transaction metadata**.
 
-- current chain ID;
-- current block number;
-- recent `Transfer` logs for the tGFC contract;
-- transaction records;
-- transaction receipts;
-- block timestamps.
+That provenance remains distinct from:
 
-The fallback is intentionally labeled **Recent window**. It does **not** claim complete historical indexing.
-
-Official Base docs record Base Sepolia as chain ID `84532` and `https://sepolia.base.org` as the standard RPC endpoint:
-https://docs.base.org/base-chain/api-reference/rpc-overview
+- The Graph indexed Transfer-event evidence;
+- direct JSON-RPC transaction/receipt evidence.
 
 ---
 
-## The Graph Readiness
+## Accountability Analyst
 
-The Graph is designed as a load-bearing source, not a decorative badge.
+The Accountability Analyst is the ETHOnline Continuity AI feature.
 
-Implemented:
+For every Analyst request:
 
-- server-side Graph Gateway client;
-- API-key protection boundary;
-- GraphQL query layer;
-- normalization into the same Explorer model used by the UI;
-- prepared `Transfer` subgraph schema, manifest and mapping;
-- transparent Graph → RPC fallback only in `auto` mode;
-- explicit source labeling in API responses and UI.
+1. the server validates the requested scope;
+2. The Graph is queried server-side for a fresh indexed tGFC evidence packet;
+3. for transaction scope, Blockscout may supplement the packet with explicitly labeled secondary transaction metadata;
+4. the bounded packet and user question are sent to the configured AI provider;
+5. structured output is returned as:
+   - answer;
+   - verified facts;
+   - limitations;
+   - cannot-conclude statements;
+   - evidence scope.
 
-Not yet available:
+The Graph is **load-bearing** for this feature. If the required Graph evidence cannot be obtained, the Analyst fails closed. It does not substitute RPC-only, Blockscout-only, static or mock evidence.
 
-- a deployed GFC Subgraph ID;
-- live Graph credentials;
-- a confirmed public Explorer deployment consuming that GFC subgraph.
+The AI is explanatory only and cannot alter the deterministic verification states.
 
-The current official ETHOnline 2026 Continuity-specific The Graph prize is AI-oriented and requires live Graph data plus meaningful AI/agent work. This repository therefore does **not** claim final prize qualification yet. See [`docs/PRIZE-READINESS.md`](docs/PRIZE-READINESS.md).
+See [`docs/explorer/AI-ANALYST.md`](docs/explorer/AI-ANALYST.md).
 
 ---
 
-## Accountability Data Model
+## Provenance rules
 
-Every domain exposes:
+The implementation deliberately keeps the following distinctions:
+
+- **The Graph** — primary indexed tGFC activity and Transfer-event evidence.
+- **Base Sepolia Blockscout** — secondary indexed historical transaction metadata when used.
+- **Base Sepolia JSON-RPC** — direct read-only RPC evidence when the provider serves it.
+- **AI model** — explanatory only; never an evidence source.
+- **Deterministic accountability model** — authoritative for verification states.
+
+A transaction `from` field is described as the **transaction sender**. It is not treated as proof of organizational authority. An ERC-20 `Transfer.from` address is not automatically assumed to equal the transaction sender.
+
+Token amounts sent to the Analyst are already normalized to human-readable token units and must not be decimal-converted again.
+
+---
+
+## Real demo transaction
+
+A public Base Sepolia transaction used in the live demo:
+
+`0x2afbe77b1d4141cdcc900645a85afb19a319508621da12606541e7a1cb0c56a8`
+
+Indexed tGFC Transfer evidence:
+
+- amount: `150000000 tGFC`
+- from: `0xed17f3a500f8d7c23cfd5c6e8782f4bd914e4280`
+- to: `0xd03ebb0c507fe55f6b5f9a79076d8ec259b47399`
+- block: `44955007`
+
+The current deterministic interpretation is intentionally conservative:
+
+| Domain | State |
+|---|---|
+| Funds | **Verified** |
+| Authority | **Not verifiable** |
+| Rules | **Not verifiable** |
+| Decisions | **Not verifiable** |
+| Outcomes | **Partially verifiable** |
+| Evidence | **Verified** |
+
+---
+
+## Repository layout
 
 ```text
-status
-summary
-evidence[]
-limitations[]
-source
+css/explorer/                         Explorer styles
+js/explorer/                          browser controller + modules
+partials/de/explorer/                 German Explorer page
+partials/en/explorer/                 English Explorer page
+lib/explorer/                         server-side provider/model/API logic
+lib/explorer/analyst/                 evidence-bounded AI layer
+netlify/functions/explorer-api.mjs    Netlify API adapter
+subgraph/explorer/                    deployed GFC Transfer Subgraph source
+tests/explorer/                       deterministic tests
+tools/explorer-dev.mjs                local Explorer server
+docs/explorer/                        architecture/security/Continuity docs
 ```
 
-Supported status values:
-
-- `verified`
-- `partially_verifiable`
-- `not_verifiable`
-- `unavailable`
-
-Example conservative interpretation for a successful tGFC transfer:
-
-- Funds: the emitted amount and addresses can be verified.
-- Authority: not verifiable from transaction data alone.
-- Rules: not verifiable without a bound rule record.
-- Decisions: not verifiable without decision evidence.
-- Outcomes: technical execution is partially verifiable; broader outcomes are not.
-- Evidence: the transaction/receipt/event records are verifiable within their onchain scope.
+This layout intentionally mirrors the Explorer-specific structure in the unified GFC website project so synchronization can be reviewed file-for-file.
 
 ---
 
-## Search
-
-The search box accepts only:
-
-- Ethereum address: `0x` + 40 hex characters;
-- transaction hash: `0x` + 64 hex characters.
-
-Address search filters activity within the scope of the active source. Transaction search loads a dedicated accountability detail view.
-
-There is no fake search behavior and no client-side demo dataset.
-
----
-
-## Setup
+## Local development
 
 ### Requirements
 
 - Node.js `20` or newer
-- network access to the configured live data provider for live data
+- network access for live provider calls
 
-The root application has **zero third-party runtime or development packages**. It uses Node and browser platform APIs directly.
+The Explorer runtime uses Node/browser platform APIs directly and has no third-party root runtime dependency.
 
 ### Install
 
@@ -222,105 +216,94 @@ The root application has **zero third-party runtime or development packages**. I
 npm install
 ```
 
-This creates/validates the lockfile; there are no third-party packages to download for the root Explorer application.
-
-### Development
+### Run
 
 ```bash
 npm run dev
 ```
 
-Open:
+Then open:
 
 ```text
-http://127.0.0.1:4173
+http://127.0.0.1:4173/en/explorer/
 ```
 
-Without a `.env`, the server starts in `auto` mode and attempts the official Base Sepolia read-only RPC fallback.
+German:
 
-### Production build
-
-```bash
-npm run build
+```text
+http://127.0.0.1:4173/de/explorer/
 ```
 
-The build copies the small standards-based web application into `dist/` and rejects unsafe inline script/event patterns.
-
-### Start built application
-
-```bash
-npm start
-```
-
-If `dist/index.html` exists, the server serves the build output. Otherwise it serves `web/` for development.
+The public The Graph Studio endpoint is already the default indexed source. The AI feature requires a local server-side OpenAI key.
 
 ---
 
-## Tests and Checks
+## Environment
+
+Copy:
+
+```text
+.env.example
+```
+
+to:
+
+```text
+.env
+```
+
+for local-only configuration.
+
+Relevant values:
+
+```env
+DATA_SOURCE_MODE=auto
+GRAPH_STUDIO_QUERY_URL=https://api.studio.thegraph.com/query/1758809/gfc-accountability-explorer/version/latest
+
+OPENAI_API_KEY=replace_with_server_side_key
+OPENAI_MODEL=gpt-5.6-luna
+OPENAI_REASONING_EFFORT=low
+```
+
+Never commit a real `.env`, OpenAI key, Graph Gateway key, private key or wallet secret.
+
+See [`EXPLORER-ENVIRONMENT-VARIABLES.txt`](EXPLORER-ENVIRONMENT-VARIABLES.txt).
+
+---
+
+## Verification
+
+Run:
 
 ```bash
-npm run lint
-npm test
-npm run build
-npm run security:check
 npm run check
 ```
 
-Coverage includes:
+The final synchronized repository includes the production Explorer test suite covering:
 
-- address validation;
-- transaction-hash validation;
-- query-limit validation;
-- empty data;
-- malformed numeric input;
-- accountability verification-state logic;
-- non-inference of authority/rules/decisions;
-- reverted transaction handling;
-- exact integer token formatting;
-- indexed address-topic parsing;
-- safe error responses;
-- rate limiting;
-- RPC-format integration using clearly isolated test fixtures.
-
-`TEST FIXTURE` data exists only inside tests and is never presented by the application as live data.
+- deterministic accountability states;
+- The Graph provider behavior;
+- Graph-required Analyst behavior;
+- The Graph / Blockscout provenance boundary;
+- normalized token amount handling;
+- Base Sepolia RPC failover and wrong-chain rejection;
+- Blockscout historical transaction fallback;
+- public API input validation;
+- rate limiting and safe error payloads;
+- Netlify adapter routing;
+- DE/EN frontend integration.
 
 ---
 
-## Environment Variables
+## ETHOnline 2026 Continuity disclosure
 
-Copy `.env.example` to `.env` locally when needed. Real `.env` files are ignored by Git.
+GFC existed before ETHOnline 2026.
 
-| Variable | Purpose | Default |
-|---|---|---|
-| `HOST` | Bind host; loopback by default | `127.0.0.1` |
-| `PORT` | Local server port | `4173` |
-| `DATA_SOURCE_MODE` | `auto`, `graph`, or `rpc` | `auto` |
-| `GRAPH_SUBGRAPH_ID` | Deployed GFC subgraph identifier | none |
-| `GRAPH_API_KEY` | Server-side Graph Gateway key | none |
-| `GRAPH_GATEWAY_URL` | Graph Gateway base URL | `https://gateway.thegraph.com/api` |
-| `BASE_SEPOLIA_RPC_URL` | Read-only Base Sepolia RPC | `https://sepolia.base.org` |
-| `RPC_LOOKBACK_BLOCKS` | Recent-window fallback depth | `120000` |
-| `RPC_LOG_CHUNK_BLOCKS` | RPC log scan chunk size | `10000` |
-| `RPC_MAX_ACTIVITY` | RPC activity result cap | `40` |
-| `UPSTREAM_TIMEOUT_MS` | Upstream timeout | `12000` |
+Pre-existing GFC work includes the project and brand, main website, Transparency Portal, public Base Sepolia pilot, infrastructure repository, token/economic documentation, governance/transparency documentation, roadmap and the canonical accountability model.
 
-`GRAPH_API_KEY` is server-side only and must never be exposed in browser code.
+The Explorer, its live data layer, custom Transfer Subgraph integration, evidence transformation, verification UI and Accountability Analyst are the substantive ETHOnline Continuity work documented in this repository.
 
----
-
-## Deployment
-
-This repository does not claim an ETHOnline public deployment yet.
-
-The app can be deployed to a Node 20-compatible host that:
-
-1. runs `npm run build`;
-2. sets `HOST=0.0.0.0` only if the hosting platform requires an external bind;
-3. runs `npm start`;
-4. stores Graph credentials as server-side environment secrets if The Graph is enabled;
-5. exposes the server over HTTPS.
-
-A public deployment URL should be added only after it actually exists.
+See [`CONTINUITY.md`](CONTINUITY.md).
 
 ---
 
@@ -329,79 +312,31 @@ A public deployment URL should be added only after it actually exists.
 The Explorer is intentionally read-only:
 
 - no wallet connection;
-- no private keys;
 - no signatures;
-- no token approvals;
+- no approvals;
 - no token transfers;
-- no smart-contract writes;
-- no client-side secrets;
-- no arbitrary GraphQL proxy;
-- no dynamic code execution.
-
-Additional controls include CSP/security headers, safe DOM text handling, fixed external link origins, validation, request timeouts, caching, request deduplication and basic rate limiting.
+- no private keys;
+- no contract writes;
+- same-origin browser API;
+- server-only secrets;
+- fixed GraphQL documents;
+- input validation;
+- rate limiting;
+- upstream timeouts;
+- restrictive security headers;
+- structured AI output;
+- `store: false` for OpenAI Responses requests.
 
 See [`SECURITY.md`](SECURITY.md).
 
-**Source verification is not a security audit.** The public Base Sepolia pilot must not be represented as audited merely because its source is verified.
-
 ---
 
-## Limitations
+## Related GFC repositories
 
-Current known limitations are explicit rather than hidden:
-
-- no deployed GFC subgraph is authenticated in this repository state;
-- Graph live mode requires an external Subgraph ID and server-side API key;
-- RPC fallback is a bounded recent window, not full historical indexing;
-- transaction metadata currently uses Base Sepolia RPC even when Graph supplies indexed tGFC Transfer entities;
-- no offchain evidence store currently binds a transaction to authority, rules, decisions, outcomes or impact;
-- no Accountability Analyst is implemented yet;
-- no Mainnet functionality is represented;
-- live provider availability depends on external network/provider availability.
-
----
-
-## AI Assistance Disclosure
-
-ChatGPT is used for:
-
-- coding;
-- troubleshooting;
-- translation.
-
-Product direction, scope, integration decisions, testing, verification and deployment remain founder-directed. AI assistance is not represented as the project owner or as autonomous control of GFC.
-
-The Explorer itself currently contains **no AI analyst feature**.
-
----
-
-## Repository Hygiene
-
-The repository excludes:
-
-- `node_modules`;
-- generated `dist/` output;
-- `.env` secrets;
-- logs;
-- temporary files;
-- local test reports;
-- IDE / OS metadata;
-- ZIP backups.
-
----
-
-## Related GFC Links
-
-- Website: https://globalfoundationcoin.org/
-- Existing infrastructure: https://github.com/GFConBase/gfc-infrastructure
-- Explorer repository: https://github.com/GFConBase/gfc-accountability-explorer
-- GitHub organization: https://github.com/GFConBase
-- Base Sepolia pilot: https://sepolia.basescan.org/address/0x7262Cca91938ede6bB6560F81104Aa410848e7f3
-
----
+- GFC infrastructure: https://github.com/GFConBase/gfc-infrastructure
+- ETHOnline Explorer: https://github.com/GFConBase/gfc-accountability-explorer
+- GFC website: https://globalfoundationcoin.org/
 
 ## License
 
-MIT License.
-
-Copyright (c) 2026 Raphael Franken / Global Foundation Coin
+MIT. See [`LICENSE`](LICENSE).

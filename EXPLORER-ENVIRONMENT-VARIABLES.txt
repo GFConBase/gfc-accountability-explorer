@@ -1,0 +1,47 @@
+GFC ACCOUNTABILITY EXPLORER — ENVIRONMENT VARIABLES
+===================================================
+
+Configure server-side variables in Netlify -> Site configuration -> Environment variables.
+Do NOT put real secrets into browser JavaScript or commit a .env file.
+
+DATA_SOURCE_MODE=auto
+
+# The Graph
+# The deployed public ETHOnline subgraph Studio endpoint is built into the Explorer as the default.
+# Override only if the endpoint/deployment changes.
+GRAPH_STUDIO_QUERY_URL=https://api.studio.thegraph.com/query/1758809/gfc-accountability-explorer/version/latest
+GRAPH_SUBGRAPH_ID=
+GRAPH_API_KEY=
+GRAPH_GATEWAY_URL=https://gateway.thegraph.com/api
+
+# Accountability Analyst (server-side AI)
+# OPENAI_API_KEY is required for the live AI feature and must remain server-side.
+OPENAI_API_KEY=
+OPENAI_MODEL=gpt-5.6-luna
+OPENAI_REASONING_EFFORT=low
+OPENAI_MAX_OUTPUT_TOKENS=900
+OPENAI_TIMEOUT_MS=30000
+OPENAI_API_URL=https://api.openai.com/v1/responses
+
+# Historical transaction index fallback (public, no API key)
+BLOCKSCOUT_API_URL=https://base-sepolia.blockscout.com/api/v2
+
+# Base Sepolia RPC fallback
+BASE_SEPOLIA_RPC_URLS=https://sepolia.base.org
+RPC_LOOKBACK_BLOCKS=120000
+RPC_LOG_CHUNK_BLOCKS=10000
+RPC_MAX_ACTIVITY=40
+UPSTREAM_TIMEOUT_MS=12000
+
+Notes
+-----
+- auto: prefer The Graph; Base Sepolia JSON-RPC remains a transparent fallback for normal Explorer reads.
+- graph: require The Graph and do not silently fall back.
+- rpc: Base Sepolia JSON-RPC only.
+- The Accountability Analyst is stricter than the normal Explorer: it requires live indexed evidence from The Graph and does NOT fall back to RPC for its evidence packet.
+- The Analyst sends only the server-assembled evidence packet plus the user's question to the configured AI provider. It does not send wallet secrets because the Explorer never requests wallet access.
+- AI output is explanatory only. It cannot modify the deterministic Funds -> Authority -> Rules -> Decisions -> Outcomes -> Evidence verification states.
+- In auto mode, historical transaction lookup may use Base Sepolia Blockscout when the public RPC cannot serve an older transaction-by-hash request.
+- Blockscout is identified explicitly in the API/UI source label and is never represented as a direct JSON-RPC receipt.
+- The browser calls only same-origin /api/explorer/* routes.
+- GRAPH_API_KEY and OPENAI_API_KEY remain server-side in the Netlify Function.

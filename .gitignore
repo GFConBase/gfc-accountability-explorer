@@ -1,34 +1,15 @@
 # Dependencies
 node_modules/
 
-# Generated build output
-dist/
-coverage/
+# Local Netlify state
+.netlify/
 
 # Local environment / secrets
 .env
 .env.*
 !.env.example
 
-# Logs and temporary files
+# Build/cache output
+dist/
+coverage/
 *.log
-*.tmp
-*.temp
-.cache/
-.tmp/
-
-# IDE / OS
-.vscode/
-.idea/
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# Local audit artifacts
-audit-artifacts/
-playwright-report/
-test-results/
-
-# The Graph generated output
-subgraph/build/
-subgraph/generated/
