@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050913">
+  <meta name="description" content="Read-only GFC Accountability Explorer für den öffentlichen Base-Sepolia-Piloten: Onchain-Aktivität wird in nachvollziehbare Nachweiszustände übersetzt.">
+  <meta name="robots" content="index,follow">
+  <title>GFC Accountability Explorer – Nachweise auf Base Sepolia</title>
+  <link rel="canonical" href="https://globalfoundationcoin.org/de/explorer/">
+  <link rel="alternate" hreflang="de" href="https://globalfoundationcoin.org/de/explorer/">
+  <link rel="alternate" hreflang="en" href="https://globalfoundationcoin.org/en/explorer/">
+  <link rel="alternate" hreflang="x-default" href="https://globalfoundationcoin.org/en/explorer/">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="stylesheet" href="/css/explorer/explorer.css">
+  <script type="module" src="/js/explorer/explorer.js"></script>
+</head>
+<body class="gfc-explorer-page">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <header class="site-header">
+    <div class="header-inner shell">
+      <a class="brand" href="/de/explorer/" aria-label="GFC Accountability Explorer Startseite">
+        <img src="/img/logo-gfc.png" alt="" width="48" height="48">
+        <span class="brand-copy"><strong>GFC</strong><span>Accountability Explorer</span></span>
+      </a>
+      <nav class="site-nav" aria-label="Hauptnavigation">
+        <a href="#overview">Überblick</a>
+        <a href="#activity">Aktivität</a>
+        <a href="#method">Methode</a>
+        <a href="/de/">GFC Website</a>
+      </nav>
+      <div class="header-tools">
+        <div class="header-status" aria-label="Netzwerkstatus"><span class="status-dot" aria-hidden="true"></span><span>BASE SEPOLIA</span></div>
+        <div class="language-switch" aria-label="Sprache wechseln">
+          <a href="/de/explorer/" lang="de" hreflang="de" aria-current="page">DE</a><span aria-hidden="true">/</span><a href="/en/explorer/" lang="en" hreflang="en">EN</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero" id="overview" aria-labelledby="hero-title">
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow-row"><span class="pill pill-testnet">ÖFFENTLICHER PILOT</span><span class="pill pill-warning">TESTNET</span><span class="pill pill-muted">NICHT MAINNET</span></div>
+          <p class="kicker">ETHOnline 2026 · Continuity Build</p>
+          <h1 id="hero-title">Onchain-Aktivität in überprüfbare Accountability-Nachweise übersetzen.</h1>
+          <p class="hero-lede">Der Explorer trennt sichtbar, was auf der Blockchain belegt ist, was daraus tatsächlich folgt und was unbelegt bleibt. Eine Transaktion ist ein Ausführungsnachweis – kein automatischer Beweis für Autorität, Regelkonformität, Zweck, Ergebnis oder Wirkung.</p>
+          <form class="search-panel" id="search-form" novalidate>
+            <label for="search-input">Base Sepolia durchsuchen</label>
+            <div class="search-row"><input id="search-input" name="search" type="text" inputmode="text" autocomplete="off" spellcheck="false" maxlength="66" placeholder="Transaktions-Hash oder Wallet-Adresse" aria-describedby="search-help search-error"><button type="submit">Prüfen</button></div>
+            <p id="search-help" class="field-help">Read-only. Keine Wallet-Verbindung, Signatur, Freigabe oder Transaktion wird angefordert.</p><p id="search-error" class="field-error" role="alert" hidden></p>
+          </form>
+        </div>
+        <aside class="network-card" aria-labelledby="network-card-title">
+          <div class="card-heading-row"><div><p class="card-kicker">Netzwerkgrenze</p><h2 id="network-card-title">Öffentlicher Testnet-Pilot</h2></div><span class="live-indicator" id="source-health" data-state="checking">Prüfung</span></div>
+          <dl class="metadata-list">
+            <div><dt>Netzwerk</dt><dd>Base Sepolia</dd></div><div><dt>Chain ID</dt><dd class="mono">84532</dd></div><div><dt>Token</dt><dd>tGFC</dd></div>
+            <div><dt>Contract</dt><dd><a class="mono break-value" href="https://sepolia.basescan.org/address/0x7262Cca91938ede6bB6560F81104Aa410848e7f3" target="_blank" rel="noopener noreferrer">0x7262Cca91938ede6bB6560F81104Aa410848e7f3</a></dd></div>
+            <div><dt>Produktions-GFC</dt><dd>Nicht deployed</dd></div><div><dt>Presale</dt><dd>Nicht live</dd></div>
+          </dl><p class="boundary-note">Source-verifizierter Pilotcode ist kein unabhängiger Security Audit und belegt keine Produktionsreife.</p>
+        </aside>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="evidence-principle-title"><div class="shell"><div class="section-heading narrow"><p class="kicker">Nachweisdisziplin</p><h2 id="evidence-principle-title">Was ist sichtbar? Was beweist es? Was bleibt unbelegt?</h2><p>Die Oberfläche hält diese Fragen bewusst getrennt. Fehlende Nachweise werden als Grenze dargestellt und niemals stillschweigend in eine Tatsache umgewandelt.</p></div><div class="principle-grid" aria-label="Accountability-Nachweisprinzipien"><article class="principle-card"><span class="step-index">01</span><h3>Sichtbar</h3><p>Onchain-Datensätze, indexierte Events, Netzwerkmetadaten, Transaction Receipts und explizite öffentliche Referenzen.</p></article><article class="principle-card"><span class="step-index">02</span><h3>Belegt</h3><p>Nur Aussagen, die sich direkt aus den verfügbaren Nachweisen und ihrem authentifizierten Umfang ableiten lassen.</p></article><article class="principle-card"><span class="step-index">03</span><h3>Unbelegt</h3><p>Autorität, Regeln, Entscheidungen, Zweck, Ergebnisse oder Wirkung, wenn die dafür erforderlichen Nachweise fehlen.</p></article></div></div></section>
+    <section class="section section-alt" id="activity" aria-labelledby="activity-title"><div class="shell"><div class="section-heading-row"><div class="section-heading"><p class="kicker">Live-Aktivitätsebene</p><h2 id="activity-title">Aktivitätsübersicht</h2><p id="activity-context">Kürzlich sichtbare tGFC-Transfer-Aktivität auf Base Sepolia.</p></div><div class="source-box" aria-live="polite"><span>Datenquelle</span><strong id="active-source">Prüfung…</strong></div></div>
+      <div class="summary-grid" id="summary-grid" aria-label="Aktivitätszusammenfassung"><article class="summary-card"><span>Sichtbare Transfers</span><strong id="summary-transfers">—</strong><small id="summary-transfer-note">Live-Daten werden geladen</small></article><article class="summary-card"><span>Sichtbare Adressen</span><strong id="summary-addresses">—</strong><small>Innerhalb des angezeigten Ergebnisses</small></article><article class="summary-card"><span>Letzter indexierter / gescannter Block</span><strong id="summary-block" class="mono">—</strong><small>Quellenabhängig</small></article><article class="summary-card"><span>Historienumfang</span><strong id="summary-scope">—</strong><small id="summary-scope-note">Quellenmetadaten werden geladen</small></article></div>
+      <div id="activity-message" class="message" role="status" hidden></div><div class="table-card" aria-labelledby="activity-table-title"><div class="table-card-header"><div><p class="card-kicker">Prüfbare Events</p><h3 id="activity-table-title">tGFC-Transfers</h3></div><button class="button-secondary" id="refresh-activity" type="button">Aktualisieren</button></div><div class="table-scroll"><table><thead><tr><th scope="col">Zeit</th><th scope="col">Von</th><th scope="col">An</th><th scope="col">Menge</th><th scope="col">Block</th><th scope="col">Nachweis</th></tr></thead><tbody id="activity-body"></tbody></table></div><div id="activity-empty" class="empty-state" hidden><strong>Keine sichtbaren Transfers in diesem Ergebnis.</strong><p>Das beweist nicht, dass keine historische Aktivität existiert. Was angezeigt werden kann, hängt von der aktiven Quelle und ihrem Umfang ab.</p></div></div>
+    </div></section>
+    <section class="section" id="analyst" aria-labelledby="analyst-title"><div class="shell"><div class="section-heading-row"><div class="section-heading"><p class="kicker">KI-Accountability-Ebene</p><h2 id="analyst-title">Accountability Analyst fragen</h2><p>Der Analyst arbeitet mit live indexierten tGFC-Nachweisen, die serverseitig aus The Graph geladen werden. Er darf Nachweise erklären, aber keine Verifikationszustände aufwerten oder fehlende Autorität, Regeln, Entscheidungen, Zwecke, Ergebnisse oder Wirkung erfinden.</p></div><span class="live-indicator" id="analyst-status" data-state="checking">Prüfung</span></div><div class="analyst-shell"><div class="analyst-context-row"><span>Aktueller Nachweiskontext</span><strong id="analyst-context">Indexierte Aktivität</strong></div><div class="analyst-presets" aria-label="Vorgeschlagene Fragen"><button type="button" class="button-secondary" data-analyst-preset="Was ist durch die indexierten Daten tatsächlich verifiziert?">Was ist verifiziert?</button><button type="button" class="button-secondary" data-analyst-preset="Was bleibt mit den verfügbaren Nachweisen unbelegt oder nicht verifizierbar?">Was bleibt unbelegt?</button><button type="button" class="button-secondary" data-analyst-preset="Fasse die wichtigsten Accountability-Grenzen in diesem Nachweiskontext zusammen.">Grenzen zusammenfassen</button></div><form id="analyst-form" class="analyst-form"><label for="analyst-input">Nachweisgebundene Frage stellen</label><div class="analyst-input-row"><textarea id="analyst-input" rows="3" maxlength="600" placeholder="Beispiel: Was beweist diese Transaktion – und was beweist sie nicht?" required></textarea><button id="analyst-submit" type="submit">Analysieren</button></div><p class="field-help">The Graph ist für diese Funktion zwingende Datenquelle. Die KI erhält serverseitig ein frisches Nachweispaket und keinen Wallet-Zugriff. KI-Ausgaben sind erklärend; die deterministischen Verifikationszustände bleiben maßgeblich.</p></form><div id="analyst-message" class="message" role="status" hidden></div><div id="analyst-result" class="analyst-result" hidden></div></div></div></section>
+    <section class="section" id="transaction-section" aria-labelledby="transaction-title" hidden><div class="shell"><div class="section-heading-row"><div class="section-heading"><p class="kicker">Transaktionsanalyse</p><h2 id="transaction-title">Accountability-Detail</h2><p>Sechs Nachweisdomänen werden unabhängig bewertet. Ein stärkerer Zustand in einer Domäne wertet die anderen nicht automatisch auf.</p></div><button class="button-secondary" id="close-transaction" type="button">Detail schließen</button></div><div id="transaction-message" class="message" role="status" hidden></div><div id="transaction-content"></div></div></section>
+    <section class="section section-alt" id="method" aria-labelledby="method-title"><div class="shell method-grid"><div class="section-heading"><p class="kicker">Accountability-Modell</p><h2 id="method-title">Funds → Authority → Rules → Decisions → Outcomes → Evidence</h2><p>Dieses sechsteilige Modell bestand bereits vor ETHOnline und gehört zur bestehenden GFC-Transparenzarchitektur. Der neue Hackathon-Build ist der Explorer, der Live-Blockchain-Datensätze in explizite Nachweiszustände überführt.</p></div><div class="method-card"><p class="card-kicker">Verifikationsvokabular</p><ul class="status-key"><li><span class="verification-badge state-verified">Verifiziert</span><span>Nachweise stützen die angezeigte Aussage direkt innerhalb des dargestellten Umfangs.</span></li><li><span class="verification-badge state-partial">Teilweise verifizierbar</span><span>Einige technische Fakten sind belegt, während weitergehende Aussagen unbelegt bleiben.</span></li><li><span class="verification-badge state-unverified">Nicht verifizierbar</span><span>Die erforderlichen Nachweise sind in den verfügbaren Daten nicht vorhanden.</span></li><li><span class="verification-badge state-unavailable">Nicht verfügbar</span><span>Eine erforderliche Quelle oder ein erforderlicher Datensatz ist nicht verfügbar.</span></li></ul></div></div></section>
+  </main>
+  <footer class="site-footer"><div class="shell footer-grid"><div class="footer-brand-block"><div class="brand footer-brand"><img src="/img/logo-gfc.png" alt="" width="44" height="44"><span class="brand-copy"><strong>GFC</strong><span>Global Foundation Coin</span></span></div><p>Read-only ETHOnline-2026-Continuity-Build. Nur öffentlicher Base-Sepolia-Pilot. Nicht Mainnet. Kein Tokenverkauf und keine Wallet-Aktion im Explorer.</p></div><nav class="footer-links" aria-label="Projektlinks"><a href="/de/">GFC Website</a><a href="/de/transparenz/">Transparenzportal</a><a href="https://github.com/GFConBase/gfc-infrastructure" target="_blank" rel="noopener noreferrer">Infrastructure</a><a href="https://github.com/GFConBase/gfc-accountability-explorer" target="_blank" rel="noopener noreferrer">Explorer Repository</a><a href="https://sepolia.basescan.org/address/0x7262Cca91938ede6bB6560F81104Aa410848e7f3" target="_blank" rel="noopener noreferrer">BaseScan Pilot</a></nav></div></footer>
+</body>
+</html>
