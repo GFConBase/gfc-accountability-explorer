@@ -29,6 +29,10 @@ export const api = Object.freeze({
     return request(`/activity?${params.toString()}`);
   },
   transaction: (hash) => request(`/transaction/${encodeURIComponent(hash)}`),
+  address: (address) => request(`/address/${encodeURIComponent(address)}`),
+  references: () => request('/gfc/references'),
+  reference: (value) => request(`/gfc/reference/${encodeURIComponent(value)}`),
+  snapshot: () => request('/gfc/snapshot'),
   analyst: ({ question, scope = 'recent', target = null, locale = 'en' }) => request('/analyst', {
     method: 'POST',
     body: { question, scope, target, locale },

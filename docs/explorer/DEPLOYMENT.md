@@ -4,8 +4,8 @@
 
 - Main GFC site: `https://globalfoundationcoin.org/`
 - Explorer subdomain: `https://explorer.globalfoundationcoin.org/`
-- English integrated route: `https://globalfoundationcoin.org/en/explorer/`
-- German integrated route: `https://globalfoundationcoin.org/de/explorer/`
+- English canonical route: `https://explorer.globalfoundationcoin.org/en/`
+- German canonical route: `https://explorer.globalfoundationcoin.org/de/`
 
 The production Explorer is deployed from the unified GFC website project to the same Netlify site as the main website.
 
@@ -34,7 +34,7 @@ explorer CNAME keen-choux-efe88a.netlify.app
 
 and is attached as a domain alias to the existing GFC Netlify site. TLS is provided by Netlify/Let's Encrypt.
 
-The production `_redirects` configuration internally rewrites the subdomain root to the English Explorer page while preserving the clean browser URL.
+The production routing keeps `/en/` and `/de/` as canonical language pages on the Explorer subdomain. The subdomain root defaults to English, while legacy main-site `/en/explorer/` and `/de/explorer/` paths redirect to the canonical subdomain.
 
 ## Deployment principle
 

@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 2,
+  "manifestUpdatedAt": "2026-08-06",
+  "id": "gfc-mock-dai",
+  "displayName": "GFC Mock DAI",
+  "displayNameLocalized": {"de": "GFC Mock DAI", "en": "GFC Mock DAI"},
+  "contractName": "GFCMockDAI",
+  "contractType": "mock-payment-token",
+  "language": "Solidity",
+  "license": "MIT",
+  "localization": {
+    "supportedLanguages": ["de", "en"],
+    "localizedFields": ["displayNameLocalized", "notice"],
+    "technicalFieldsLanguageNeutral": true,
+    "fallbackLanguage": "en"
+  },
+  "deployment": {
+    "status": "deployed",
+    "stage": "testnet-reference",
+    "currentReference": true,
+    "officialMainnetDeployment": false,
+    "transactionHash": "0xbc059a861f65c416f9622183c420c5feb94f6c0ce94cff59ff646a25e456a524",
+    "blockNumber": 44954604,
+    "deployedAt": "2026-08-02T13:31:36Z",
+    "deployer": "0xeD17f3a500f8d7C23Cfd5C6E8782f4bD914E4280"
+  },
+  "network": {"name": "Base Sepolia", "environment": "testnet", "chainId": 84532},
+  "address": "0x99C9bB07485aCe095e4093F0C31711b3096aa06D",
+  "verification": {
+    "status": "verified",
+    "matchType": "exact-match",
+    "sourceOfTruth": "BaseScan",
+    "verifiedAt": null,
+    "syncedAt": "2026-08-06",
+    "baseScanUrl": "https://sepolia.basescan.org/address/0x99C9bB07485aCe095e4093F0C31711b3096aa06D#code",
+    "blockscoutUrl": "https://base-sepolia.blockscout.com/address/0x99C9bB07485aCe095e4093F0C31711b3096aa06D"
+  },
+  "audit": {"status": "not-audited", "provider": null, "auditedVersion": null, "reportUrl": null},
+  "compiler": {"version": "v0.8.36+commit.8a079791", "optimizationEnabled": true, "optimizationRuns": 200, "evmVersion": "cancun"},
+  "constructor": {"argumentsRequired": false, "encodedArguments": "", "arguments": []},
+  "sourceFiles": [{"name": "GFCMockDAI.sol", "path": "GFCMockDAI.sol", "primary": true}],
+  "properties": {
+    "standard": "ERC-20-compatible",
+    "tokenName": "GFC Mock DAI",
+    "symbol": "mDAI",
+    "decimals": 18,
+    "supply": {
+      "initialSupplyTokens": "0",
+      "initialSupplyBaseUnits": "0",
+      "currentSupplySource": "totalSupply()",
+      "globalSupplyCap": null,
+      "canIncrease": true,
+      "increaseMechanism": "claimFaucet()",
+      "canDecreaseThroughBurn": false
+    },
+    "faucet": {
+      "enabled": true,
+      "claimFunction": "claimFaucet()",
+      "claimAmountTokens": "10000",
+      "claimAmountBaseUnits": "10000000000000000000000",
+      "claimLimit": "once-per-wallet-address",
+      "identityBasedLimit": false,
+      "permissionRequired": false,
+      "claimCanBeReset": false,
+      "amountCanBeChanged": false
+    },
+    "capabilities": {
+      "transfers": true,
+      "allowances": true,
+      "transferFrom": true,
+      "publicFaucet": true,
+      "administratorMint": false,
+      "burn": false,
+      "pause": false,
+      "blacklist": false,
+      "whitelist": false,
+      "transferTax": false,
+      "upgradeable": false
+    }
+  },
+  "control": {
+    "ownerRoleExists": false,
+    "ownershipModel": "none",
+    "ownershipCanBeTransferred": false,
+    "ownershipCanBeRenounced": false,
+    "administrativeAuthorities": [],
+    "noAuthorityCan": ["mint-arbitrary-amounts", "change-faucet-amount", "reset-faucet-claims", "pause-transfers", "block-addresses", "whitelist-addresses", "set-transfer-tax", "change-user-balances", "change-user-allowances", "recover-user-tokens", "upgrade-contract"],
+    "authorityModel": "permissionless-fixed-rules",
+    "administrativeControlExists": false
+  },
+  "classification": {
+    "environment": "testnet",
+    "testnetOnly": true,
+    "officialDaiContract": false,
+    "issuedByMakerDaoOrSky": false,
+    "officialMainnetContract": false,
+    "publicFundraisingContract": false,
+    "depositAddress": false,
+    "guaranteedFinancialValue": false
+  },
+  "relationships": {"usedAs": ["test-presale-payment-asset"], "usedBy": ["gfc-test-presale"]},
+  "frontend": {
+    "readerType": "mock-payment-token",
+    "liveReads": ["name", "symbol", "decimals", "totalSupply", "REQUIRED_CHAIN_ID", "FAUCET_AMOUNT", "TESTNET_NOTICE"],
+    "optionalAddressReads": ["balanceOf", "faucetClaimed"],
+    "optionalAddressPairReads": ["allowance"]
+  },
+  "limitations": ["testnet-only", "not-official-dai", "not-issued-by-makerdao-or-sky", "no-guaranteed-financial-value", "one-claim-per-wallet-not-per-person", "multiple-wallet-addresses-can-claim-independently", "no-global-supply-cap", "not-a-deposit-address", "not-externally-audited"],
+  "notice": {
+    "de": "GFC Mock DAI ist ein ausschließlich für Base Sepolia bestimmter Test-Token. Er ist kein offizieller DAI, wird weder von MakerDAO noch von Sky herausgegeben und besitzt keinen garantierten finanziellen Wert. Jede Wallet-Adresse kann einmal 10.000 mDAI für technische Tests beanspruchen. Mehrere Wallet-Adressen können unabhängig voneinander einen Anspruch durchführen.",
+    "en": "GFC Mock DAI is a test token intended exclusively for Base Sepolia. It is not official DAI, is not issued by MakerDAO or Sky and has no guaranteed financial value. Each wallet address can claim 10,000 mDAI once for technical testing. Multiple wallet addresses can claim independently."
+  }
+}

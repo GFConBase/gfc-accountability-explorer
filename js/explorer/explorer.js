@@ -1,7 +1,7 @@
 import { api } from './modules/api.js';
 import { classifySearch } from './modules/validation.js';
 import { formatInteger } from './modules/format.js';
-import { renderActivityRows, renderTransaction, renderAnalyst } from './modules/views.js';
+import { renderActivityRows, renderTransaction, renderAnalyst, renderReferences, renderReference, renderAddress } from './modules/views.js';
 import { t, getLocale } from './modules/i18n.js';
 
 const dom = Object.freeze({
@@ -33,6 +33,16 @@ const dom = Object.freeze({
   analystStatus: document.querySelector('#analyst-status'),
   analystSubmit: document.querySelector('#analyst-submit'),
   analystPresets: [...document.querySelectorAll('[data-analyst-preset]')],
+  referencesGrid: document.querySelector('#references-grid'),
+  referencesMessage: document.querySelector('#references-message'),
+  addressSection: document.querySelector('#address-section'),
+  addressContent: document.querySelector('#address-content'),
+  addressMessage: document.querySelector('#address-message'),
+  closeAddress: document.querySelector('#close-address'),
+  referenceSection: document.querySelector('#reference-section'),
+  referenceContent: document.querySelector('#reference-content'),
+  referenceMessage: document.querySelector('#reference-message'),
+  closeReference: document.querySelector('#close-reference'),
 });
 
 let currentAddress = null;
@@ -142,6 +152,62 @@ async function loadActivity({ address = currentAddress } = {}) {
   }
 }
 
+async function loadReferences() {
+  if (!dom.referencesGrid) return;
+  try {
+    const result = await api.references();
+    renderReferences(dom.referencesGrid, result.references || []);
+    showMessage(dom.referencesMessage, '');
+  } catch (error) {
+    showMessage(dom.referencesMessage, `${error.message} ${t('noMock')}`, 'error');
+  }
+}
+
+async function loadAddressContext(address, { updateUrl = false } = {}) {
+  if (!dom.addressSection || !dom.addressContent) return;
+  dom.addressSection.hidden = false;
+  dom.addressContent.replaceChildren();
+  showMessage(dom.addressMessage, t('loadingActivity'));
+  try {
+    const result = await api.address(address);
+    renderAddress(dom.addressContent, result);
+    showMessage(dom.addressMessage, result.warning || '', result.warning ? 'warning' : 'info');
+    if (updateUrl) history.replaceState(null, '', `?address=${encodeURIComponent(address)}#address-section`);
+  } catch (error) {
+    showMessage(dom.addressMessage, `${error.message} ${t('noMock')}`, 'error');
+  }
+}
+
+async function openReference(value, { updateUrl = true } = {}) {
+  if (!dom.referenceSection || !dom.referenceContent) return;
+  dom.referenceSection.hidden = false;
+  dom.referenceContent.replaceChildren();
+  showMessage(dom.referenceMessage, t('loadingActivity'));
+  try {
+    const result = await api.reference(value);
+    renderReference(dom.referenceContent, result);
+    showMessage(dom.referenceMessage, '');
+    if (updateUrl) history.replaceState(null, '', `?ref=${encodeURIComponent(result.id)}#reference-section`);
+    dom.referenceSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch (error) {
+    showMessage(dom.referenceMessage, error.message || t('unavailable'), 'error');
+  }
+}
+
+function closeAddress() {
+  if (!dom.addressSection) return;
+  dom.addressSection.hidden = true;
+  dom.addressContent?.replaceChildren();
+}
+
+function closeReference() {
+  if (!dom.referenceSection) return;
+  dom.referenceSection.hidden = true;
+  dom.referenceContent?.replaceChildren();
+  const basePath = window.location.pathname || '/';
+  history.replaceState(null, '', currentAddress ? `${basePath}?address=${encodeURIComponent(currentAddress)}#activity` : `${basePath}#references`);
+}
+
 async function loadTransaction(hash, { updateUrl = true } = {}) {
   dom.transactionSection.hidden = false;
   dom.transactionContent.replaceChildren();
@@ -188,8 +254,8 @@ dom.form.addEventListener('submit', (event) => {
   } else {
     currentAddress = target.value;
     history.replaceState(null, '', `?address=${encodeURIComponent(target.value)}#activity`);
-    loadActivity({ address: target.value });
-    document.querySelector('#activity').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    Promise.all([loadAddressContext(target.value), loadActivity({ address: target.value })]);
+    document.querySelector('#address-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 });
 
@@ -238,8 +304,17 @@ if (dom.analystForm) {
 
 dom.refresh.addEventListener('click', () => loadActivity());
 dom.closeTransaction.addEventListener('click', closeTransaction);
+dom.closeAddress?.addEventListener('click', closeAddress);
+dom.closeReference?.addEventListener('click', closeReference);
 
 document.addEventListener('click', (event) => {
+  const referenceButton = event.target.closest('[data-reference]');
+  if (referenceButton) {
+    event.preventDefault();
+    openReference(referenceButton.dataset.reference);
+    return;
+  }
+
   const link = event.target.closest('a[href^="?tx="]');
   if (!link) return;
   const url = new URL(link.href, window.location.href);
@@ -252,13 +327,17 @@ document.addEventListener('click', (event) => {
 const params = new URLSearchParams(window.location.search);
 const addressParam = classifySearch(params.get('address'));
 const txParam = classifySearch(params.get('tx'));
+const refParam = String(params.get('ref') || '').trim();
 if (addressParam?.type === 'address') {
   currentAddress = addressParam.value;
   dom.input.value = addressParam.value;
 }
 
-await Promise.all([loadStatus(), loadActivity({ address: currentAddress })]);
+await Promise.all([loadStatus(), loadReferences(), loadActivity({ address: currentAddress }), currentAddress ? loadAddressContext(currentAddress) : Promise.resolve()]);
 if (txParam?.type === 'transaction') {
   dom.input.value = txParam.value;
   await loadTransaction(txParam.value, { updateUrl: false });
+}
+if (refParam && refParam.length <= 100) {
+  await openReference(refParam, { updateUrl: false });
 }

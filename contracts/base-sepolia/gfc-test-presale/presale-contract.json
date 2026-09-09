@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 2,
+  "manifestUpdatedAt": "2026-08-06",
+  "id": "gfc-test-presale",
+  "displayName": "GFC Test Presale",
+  "displayNameLocalized": {"de": "GFC Test Presale", "en": "GFC Test Presale"},
+  "contractName": "GFCTestPresale",
+  "contractType": "test-presale",
+  "language": "Solidity",
+  "license": "MIT",
+  "localization": {
+    "supportedLanguages": ["de", "en"],
+    "localizedFields": ["displayNameLocalized", "notice"],
+    "technicalFieldsLanguageNeutral": true,
+    "fallbackLanguage": "en"
+  },
+  "deployment": {
+    "status": "deployed",
+    "stage": "testnet-reference",
+    "currentReference": true,
+    "officialMainnetDeployment": false,
+    "transactionHash": "0x3a7784e27908dc3e87f4f7cd15588e014232060151f674133421e86de2559be5",
+    "blockNumber": 44954800,
+    "deployedAt": "2026-08-02T13:38:08Z",
+    "deployer": "0xeD17f3a500f8d7C23Cfd5C6E8782f4bD914E4280"
+  },
+  "initialFunding": {
+    "status": "completed",
+    "purpose": "fund-presale-token-allocation",
+    "transactionHash": "0x2afbe77b1d4141cdcc900645a85afb19a319508621da12606541e7a1cb0c56a8",
+    "blockNumber": 44955007,
+    "fundedAt": "2026-08-02T13:45:02Z",
+    "funder": "0xeD17f3a500f8d7C23Cfd5C6E8782f4bD914E4280",
+    "recipient": "0xd03ebB0c507fe55F6B5F9A79076d8Ec259b47399",
+    "tokenContract": "0x7262Cca91938ede6bB6560F81104Aa410848e7f3",
+    "tokenSymbol": "tGFC",
+    "amountTokens": "150000000",
+    "amountBaseUnits": "150000000000000000000000000"
+  },
+  "network": {"name": "Base Sepolia", "environment": "testnet", "chainId": 84532},
+  "address": "0xd03ebB0c507fe55F6B5F9A79076d8Ec259b47399",
+  "verification": {
+    "status": "verified",
+    "matchType": "exact-match",
+    "sourceOfTruth": "BaseScan",
+    "verifiedAt": null,
+    "syncedAt": "2026-08-06",
+    "baseScanUrl": "https://sepolia.basescan.org/address/0xd03ebB0c507fe55F6B5F9A79076d8Ec259b47399#code",
+    "blockscoutUrl": "https://base-sepolia.blockscout.com/address/0xd03ebB0c507fe55F6B5F9A79076d8Ec259b47399"
+  },
+  "audit": {"status": "not-audited", "provider": null, "auditedVersion": null, "reportUrl": null},
+  "compiler": {"version": "v0.8.36+commit.8a079791", "optimizationEnabled": true, "optimizationRuns": 200, "evmVersion": "cancun"},
+  "constructor": {
+    "argumentsRequired": true,
+    "encodedArguments": "0x000000000000000000000000ed17f3a500f8d7c23cfd5c6e8782f4bd914e428000000000000000000000000099c9bb07485ace095e4093f0c31711b3096aa06d000000000000000000000000000000000000000000000000000000006a95f960000000000000000000000000000000000000000000000000000000006adfdb70000000000000000000000000000000000000000000000000000012309ce54000",
+    "arguments": [
+      {"name": "treasury_", "type": "address payable", "value": "0xeD17f3a500f8d7C23Cfd5C6E8782f4bD914E4280"},
+      {"name": "daiToken_", "type": "address", "value": "0x99C9bB07485aCe095e4093F0C31711b3096aa06D"},
+      {"name": "startTime_", "type": "uint64", "value": "1788213600", "isoDate": "2026-09-01T00:00:00+02:00", "utcDate": "2026-08-31T22:00:00Z"},
+      {"name": "endTime_", "type": "uint64", "value": "1793055600", "isoDate": "2026-10-27T00:00:00+01:00", "utcDate": "2026-10-26T23:00:00Z"},
+      {"name": "weiPerToken_", "type": "uint256", "value": "20000000000000", "displayValue": "0.00002 Base Sepolia ETH per tGFC"}
+    ]
+  },
+  "sourceFiles": [{"name": "GFCTestPresale.sol", "path": "GFCTestPresale.sol", "primary": true}],
+  "properties": {
+    "saleWindow": {
+      "startTimestamp": "1788213600",
+      "startDate": "2026-09-01T00:00:00+02:00",
+      "endTimestamp": "1793055600",
+      "endDate": "2026-10-27T00:00:00+01:00",
+      "plannedCalendarDuration": "8-weeks",
+      "startCanBeChanged": false,
+      "endCanBeChanged": false,
+      "startDateUtc": "2026-08-31T22:00:00Z",
+      "endDateUtc": "2026-10-26T23:00:00Z"
+    },
+    "distribution": {
+      "tokenContract": "0x7262Cca91938ede6bB6560F81104Aa410848e7f3",
+      "tokenSymbol": "tGFC",
+      "distributionModel": "immediate",
+      "presaleTokenCapTokens": "150000000",
+      "presaleTokenCapBaseUnits": "150000000000000000000000000",
+      "fullRemainingAllocationMustBeFunded": true,
+      "unsoldTokensRecoverable": true
+    },
+    "paymentAssets": [
+      {"id": "base-sepolia-eth", "name": "Base Sepolia ETH", "type": "native", "address": null, "decimals": 18, "pricePerTokenBaseUnits": "20000000000000", "pricePerTokenDisplay": "0.00002 Base Sepolia ETH", "paymentFunction": "buyWithETH(uint256)"},
+      {"id": "base-sepolia-test-usdc", "name": "Base Sepolia Test USDC", "type": "external-erc20", "address": "0x036CbD53842c5426634e7929541eC2318f3dCF7e", "decimals": 6, "pricePerTokenBaseUnits": "50000", "pricePerTokenDisplay": "0.05 test USDC", "paymentFunction": "buyWithUSDC(uint256)"},
+      {"id": "gfc-mock-dai", "name": "GFC Mock DAI", "type": "gfc-mock-erc20", "address": "0x99C9bB07485aCe095e4093F0C31711b3096aa06D", "decimals": 18, "pricePerTokenBaseUnits": "50000000000000000", "pricePerTokenDisplay": "0.05 mDAI", "paymentFunction": "buyWithDAI(uint256)"}
+    ],
+    "paymentFlow": {
+      "treasury": "0xeD17f3a500f8d7C23Cfd5C6E8782f4bD914E4280",
+      "paymentsForwardedDirectly": true,
+      "paymentsStoredInPresaleContract": false,
+      "treasuryCanBeChanged": false,
+      "directEthTransfersAccepted": false
+    },
+    "accounting": {
+      "tracksTokensSold": true,
+      "tracksPurchasedAmountByAddress": true,
+      "tracksEthRaised": true,
+      "tracksUsdcRaised": true,
+      "tracksDaiRaised": true,
+      "softCapImplemented": false,
+      "refundMechanismImplemented": false
+    },
+    "purchaseRules": {
+      "minimumPurchase": null,
+      "maximumPurchase": null,
+      "perWalletLimit": null,
+      "whitelistRequired": false,
+      "exactEthAmountRequired": true,
+      "erc20ApprovalRequired": true,
+      "paymentQuotesRoundUp": true
+    },
+    "capabilities": {
+      "immediateDistribution": true,
+      "permanentEmergencyStop": true,
+      "resumeAfterStop": false,
+      "unsoldTokenRecovery": true,
+      "twoStepOwnershipTransfer": true,
+      "ownershipRenunciation": false,
+      "reentrancyProtection": true,
+      "upgradeable": false,
+      "priceChanges": false,
+      "treasuryChanges": false,
+      "paymentAssetChanges": false,
+      "saleWindowChanges": false,
+      "softCap": false,
+      "refunds": false
+    }
+  },
+  "control": {
+    "ownerRoleExists": true,
+    "ownershipModel": "two-step",
+    "ownershipCanBeTransferred": true,
+    "ownershipCanBeRenounced": false,
+    "ownerCan": ["permanently-stop-presale", "recover-unsold-tgfc-after-end-sellout-or-permanent-stop", "start-ownership-transfer"],
+    "pendingOwnerCan": ["accept-ownership"],
+    "ownerCannot": ["resume-a-stopped-presale", "change-token-prices", "change-treasury", "change-start-time", "change-end-time", "change-payment-assets", "increase-presale-token-cap", "change-purchase-history", "refund-payments", "renounce-ownership", "upgrade-contract"],
+    "ownerAuthorityScope": "limited-emergency-stop-recovery-and-ownership-administration"
+  },
+  "classification": {
+    "environment": "testnet",
+    "testnetOnly": true,
+    "officialMainnetContract": false,
+    "publicTestingContract": true,
+    "activePublicFundraisingContract": false,
+    "officialMainnetPresale": false,
+    "depositAddress": false,
+    "testAssetsOnly": true,
+    "guaranteedFinancialValue": false
+  },
+  "relationships": {
+    "distributes": ["gfc-token-pilot"],
+    "accepts": ["base-sepolia-eth", "base-sepolia-test-usdc", "gfc-mock-dai"],
+    "forwardsPaymentsTo": ["0xeD17f3a500f8d7C23Cfd5C6E8782f4bD914E4280"]
+  },
+  "frontend": {
+    "readerType": "test-presale",
+    "liveReads": ["REQUIRED_CHAIN_ID", "GFC_TOKEN_ADDRESS", "USDC_TOKEN_ADDRESS", "PRESALE_TOKEN_CAP", "TOKEN_UNIT", "USDC_DECIMALS", "DAI_DECIMALS", "USDC_PER_TOKEN", "DAI_PER_TOKEN", "TESTNET_NOTICE", "gfcToken", "usdcToken", "daiToken", "treasury", "startTime", "endTime", "weiPerToken", "owner", "pendingOwner", "permanentlyStopped", "tokensSold", "totalEthRaised", "totalUsdcRaised", "totalDaiRaised", "presaleState", "isActive", "remainingAllocation", "availableTokenInventory", "isFullyFunded"],
+    "optionalAddressReads": ["purchasedBy"],
+    "enumMappings": {"presaleState": {"0": "pending", "1": "active", "2": "ended", "3": "sold-out", "4": "permanently-stopped"}},
+    "quoteReads": ["quoteEth", "quoteUsdc", "quoteDai"]
+  },
+  "limitations": ["testnet-only", "test-assets-have-no-guaranteed-financial-value", "not-an-active-public-mainnet-presale", "no-soft-cap", "no-refund-mechanism", "no-minimum-purchase", "no-maximum-purchase", "no-per-wallet-purchase-limit", "payments-forwarded-directly-to-treasury", "configuration-cannot-be-changed-after-deployment", "not-externally-audited"],
+  "notice": {
+    "de": "Der GFC Test Presale ist ein ausschließlich für Base Sepolia bestimmter Test- und Distributionscontract. Er akzeptiert Base-Sepolia-ETH, offiziellen Base-Sepolia-Test-USDC und GFC Mock DAI und verteilt tGFC unmittelbar nach erfolgreicher Testzahlung. Er ist kein aktiver öffentlicher Mainnet-Presale. Der Contract enthält keinen Soft Cap und keinen Refund-Mechanismus; diese geplanten Funktionen werden durch dieses Test-Deployment nicht abgebildet. Sämtliche verwendeten Testnet-Assets besitzen keinen garantierten finanziellen Wert.",
+    "en": "The GFC Test Presale is a test and distribution contract intended exclusively for Base Sepolia. It accepts Base Sepolia ETH, official Base Sepolia test USDC and GFC Mock DAI, and distributes tGFC immediately after a successful test payment. It is not an active public mainnet presale. The contract contains no soft cap or refund mechanism; these planned functions are not represented by this test deployment. All testnet assets used have no guaranteed financial value."
+  }
+}

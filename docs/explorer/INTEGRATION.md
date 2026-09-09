@@ -10,22 +10,24 @@ Primary demo URL:
 
 Integrated language routes:
 
-- English: `https://globalfoundationcoin.org/en/explorer/`
-- German: `https://globalfoundationcoin.org/de/explorer/`
+- English canonical: `https://explorer.globalfoundationcoin.org/en/`
+- German canonical: `https://explorer.globalfoundationcoin.org/de/`
 
 The subdomain and main site are served from the same Netlify project. The Explorer is not maintained as a second independent production website.
 
 ## Public routes
 
 ```text
-/de/explorer/
-/en/explorer/
+/de/
+/en/
 /api/explorer/*
+
+Legacy redirects:
+/de/explorer/ -> https://explorer.globalfoundationcoin.org/de/
+/en/explorer/ -> https://explorer.globalfoundationcoin.org/en/
 ```
 
-The production subdomain root is internally rewritten to the English Explorer page while the browser keeps the clean:
-
-`https://explorer.globalfoundationcoin.org/`
+The production subdomain root defaults to English. Canonical language URLs are `https://explorer.globalfoundationcoin.org/en/` and `/de/`.
 
 ## Frontend
 
@@ -51,7 +53,9 @@ The server provider layer supports:
 - The Graph as primary indexed source;
 - Base Sepolia JSON-RPC as normal Explorer fallback;
 - Base Sepolia Blockscout as historical transaction fallback;
-- the evidence-bounded Accountability Analyst.
+- the evidence-bounded Accountability Analyst;
+- published GFC Base Sepolia registry references;
+- read-only Base Sepolia address classification and fail-closed GFC snapshot reads.
 
 ## The Graph
 
@@ -93,13 +97,13 @@ npm run dev
 Open:
 
 ```text
-http://127.0.0.1:4173/en/explorer/
+http://127.0.0.1:4173/en/
 ```
 
 or:
 
 ```text
-http://127.0.0.1:4173/de/explorer/
+http://127.0.0.1:4173/de/
 ```
 
 ## Source-of-truth relationship

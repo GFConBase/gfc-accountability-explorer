@@ -14,6 +14,7 @@ The following are pre-existing GFC work and are **not** claimed as ETHOnline-cre
 - GFC logo and visual identity
 - `globalfoundationcoin.org` website and Transparency Portal
 - public Base Sepolia GFC pilot
+- existing Base Sepolia contract/reference registry and technical deployment metadata
 - `GFConBase/gfc-infrastructure`
 - GFC token / economic specifications and documentation
 - governance, authority, security and transparency documentation
@@ -32,6 +33,7 @@ The following are pre-existing GFC work and are **not** claimed as ETHOnline-cre
 - The Graph as the primary indexed activity source
 - activity overview, address filtering and token-contract event-emitter scope
 - transaction evidence detail
+- Explorer-side integration of pre-existing GFC reference metadata, address classification and fail-closed snapshot reads
 - accountability-oriented transformation layer
 - verification states and limitation logic
 - evidence-constrained **Accountability Analyst** natural-language interface

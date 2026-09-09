@@ -22,11 +22,13 @@ Missing evidence is displayed as a limitation. Transaction execution is never si
 |---|---|
 | Public Explorer | **Live** |
 | Production demo URL | **https://explorer.globalfoundationcoin.org/** |
-| English integrated route | **https://globalfoundationcoin.org/en/explorer/** |
-| German integrated route | **https://globalfoundationcoin.org/de/explorer/** |
+| English canonical route | **https://explorer.globalfoundationcoin.org/en/** |
+| German canonical route | **https://explorer.globalfoundationcoin.org/de/** |
 | Base Sepolia transaction lookup | **Live** |
 | Indexed Transfer activity | **Live via The Graph** |
-| Address activity | **Live via The Graph** |
+| Address activity | **Live via The Graph for tGFC activity + Base Sepolia RPC classification** |
+| Published GFC references | **Integrated from the Base Sepolia registry** |
+| GFC live snapshot | **Read-only Base Sepolia RPC; unavailable reads stay unavailable** |
 | Historical transaction fallback | **Live via Base Sepolia Blockscout when required** |
 | Accountability transformation model | **Implemented** |
 | Accountability Analyst / AI | **Live when server-side OpenAI key is configured** |
@@ -111,6 +113,19 @@ That provenance remains distinct from:
 
 - The Graph indexed Transfer-event evidence;
 - direct JSON-RPC transaction/receipt evidence.
+
+### Published GFC references and snapshot
+
+The Explorer can expose known GFC Base Sepolia contracts and the fixed test-treasury reference from the synchronized registry at `contracts/base-sepolia/registry.json`. The three registry-linked contract manifests are mirrored alongside it so reference detail can expose deployment, compiler, control, capability and configured-read metadata without inventing those fields. These files are **pre-existing GFC source data**; the ETHOnline Explorer integration is the new investigation surface around them.
+
+Read-only routes include:
+
+- `/api/explorer/gfc/references`;
+- `/api/explorer/gfc/reference/:id-or-address`;
+- `/api/explorer/address/:address`;
+- `/api/explorer/gfc/snapshot`.
+
+Live RPC fields fail closed: an unavailable read remains `null`/unavailable and is never reconstructed from a static claim. The registry also preserves the public boundary that no official GFC mainnet contracts, active public mainnet presale or external audit report are published in this testnet state.
 
 ---
 
@@ -225,13 +240,13 @@ npm run dev
 Then open:
 
 ```text
-http://127.0.0.1:4173/en/explorer/
+http://127.0.0.1:4173/en/
 ```
 
 German:
 
 ```text
-http://127.0.0.1:4173/de/explorer/
+http://127.0.0.1:4173/de/
 ```
 
 The public The Graph Studio endpoint is already the default indexed source. The AI feature requires a local server-side OpenAI key.
@@ -291,7 +306,12 @@ The final synchronized repository includes the production Explorer test suite co
 - public API input validation;
 - rate limiting and safe error payloads;
 - Netlify adapter routing;
-- DE/EN frontend integration.
+- DE/EN frontend integration;
+- canonical Explorer-subdomain routing and legacy redirects;
+- published GFC reference lookup and address classification;
+- fail-closed GFC snapshot mapping and malformed-route regression coverage.
+
+**Current synchronized result: 40/40 tests pass.**
 
 ---
 

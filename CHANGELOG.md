@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.3.0 — 2026-09-08
+
+Post-judging-day synchronization of the standalone ETHOnline repository with the Explorer state produced during the 8 September GFC website/Explorer integration work.
+
+### Added
+
+- published Base Sepolia GFC registry mirror for Explorer-side reference context;
+- known GFC contract/test-treasury reference routes;
+- read-only Base Sepolia address classification route;
+- fail-closed GFC live snapshot route;
+- reference/address investigation UI and planned Accountability Records boundary;
+- malformed percent-encoded route hardening;
+- seven regression tests covering the new reference/snapshot boundary.
+
+### Changed
+
+- canonical language URLs are now `https://explorer.globalfoundationcoin.org/en/` and `/de/`;
+- legacy `/en/explorer/` and `/de/explorer/` paths redirect to the canonical Explorer subdomain;
+- Netlify includes the published registry with the serverless function bundle;
+- Explorer copy now explicitly states that The Graph is load-bearing for indexed tGFC activity but is not a universal Base indexer;
+- documentation and local preview routes synchronized to the post-8-September architecture.
+
+### Verified
+
+- `npm run check` passes after synchronization;
+- 40/40 Explorer tests pass;
+- no wallet writes, approvals, signatures or contract writes were added;
+- testnet/mainnet/presale/audit boundaries remain fail-closed and explicit.
+
 ## 0.2.0 — 2026-09-07
 
 Final ETHOnline Continuity synchronization after public production deployment.

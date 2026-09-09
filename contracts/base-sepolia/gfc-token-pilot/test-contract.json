@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 2,
+  "manifestUpdatedAt": "2026-08-06",
+  "id": "gfc-token-pilot",
+  "displayName": "GFC Test Token",
+  "displayNameLocalized": {"de": "GFC Test-Token", "en": "GFC Test Token"},
+  "contractName": "GFCTestToken",
+  "contractType": "test-token",
+  "language": "Solidity",
+  "license": "MIT",
+  "localization": {
+    "supportedLanguages": ["de", "en"],
+    "localizedFields": ["displayNameLocalized", "notice"],
+    "technicalFieldsLanguageNeutral": true,
+    "fallbackLanguage": "en"
+  },
+  "deployment": {
+    "status": "deployed",
+    "stage": "testnet-reference",
+    "currentReference": true,
+    "officialMainnetDeployment": false,
+    "transactionHash": "0xc7828cb432dbaed63753cc5128870fc51931c6fbdd40ffad61bd2944108a4fba",
+    "blockNumber": 44738545,
+    "deployedAt": "2026-07-28T13:29:38Z",
+    "deployer": "0xeD17f3a500f8d7C23Cfd5C6E8782f4bD914E4280"
+  },
+  "network": {"name": "Base Sepolia", "environment": "testnet", "chainId": 84532},
+  "address": "0x7262Cca91938ede6bB6560F81104Aa410848e7f3",
+  "verification": {
+    "status": "verified",
+    "matchType": "exact-match",
+    "sourceOfTruth": "BaseScan",
+    "verifiedAt": null,
+    "syncedAt": "2026-08-06",
+    "baseScanUrl": "https://sepolia.basescan.org/address/0x7262Cca91938ede6bB6560F81104Aa410848e7f3#code",
+    "blockscoutUrl": "https://base-sepolia.blockscout.com/address/0x7262Cca91938ede6bB6560F81104Aa410848e7f3"
+  },
+  "audit": {"status": "not-audited", "provider": null, "auditedVersion": null, "reportUrl": null},
+  "compiler": {"version": "v0.8.36+commit.8a079791", "optimizationEnabled": true, "optimizationRuns": 200, "evmVersion": "cancun"},
+  "constructor": {"argumentsRequired": false, "encodedArguments": "", "arguments": []},
+  "sourceFiles": [{"name": "GFCTestToken.sol", "path": "GFCTestToken.sol", "primary": true}],
+  "properties": {
+    "standard": "ERC-20",
+    "tokenName": "Global Foundation Coin Test",
+    "symbol": "tGFC",
+    "decimals": 18,
+    "supply": {
+      "initialSupplyTokens": "1000000000",
+      "initialSupplyBaseUnits": "1000000000000000000000000000",
+      "initialSupplyUnit": "tGFC",
+      "currentSupplySource": "totalSupply()",
+      "canIncrease": false,
+      "canDecreaseThroughBurn": true
+    },
+    "capabilities": {
+      "transfers": true,
+      "allowances": true,
+      "burn": true,
+      "burnFrom": true,
+      "mintAfterDeployment": false,
+      "pause": false,
+      "blacklist": false,
+      "whitelist": false,
+      "transferTax": false,
+      "upgradeable": false
+    }
+  },
+  "control": {
+    "ownerRoleExists": true,
+    "ownershipModel": "two-step",
+    "ownershipCanBeRenounced": true,
+    "ownerCan": ["start-ownership-transfer", "renounce-ownership"],
+    "pendingOwnerCan": ["accept-ownership"],
+    "ownerCannot": ["mint-tokens", "increase-total-supply", "pause-transfers", "block-addresses", "whitelist-addresses", "set-transfer-tax", "change-user-balances", "change-user-allowances", "recover-user-tokens", "upgrade-contract"],
+    "ownershipCanBeTransferred": true,
+    "ownerAuthorityScope": "ownership-administration-only",
+    "ownershipAffectsTokenLogic": false
+  },
+  "classification": {
+    "environment": "testnet",
+    "testnetOnly": true,
+    "officialMainnetContract": false,
+    "publicFundraisingContract": false,
+    "depositAddress": false,
+    "guaranteedFinancialValue": false
+  },
+  "relationships": {"usedAs": ["test-presale-distribution-token"], "usedBy": ["gfc-test-presale"]},
+  "frontend": {
+    "readerType": "test-token",
+    "liveReads": ["name", "symbol", "decimals", "INITIAL_SUPPLY", "totalSupply", "owner", "pendingOwner"],
+    "optionalAddressReads": ["balanceOf"],
+    "optionalAddressPairReads": ["allowance"]
+  },
+  "limitations": ["testnet-only", "not-mainnet-gfc", "no-guaranteed-financial-value", "not-a-deposit-address", "not-externally-audited"],
+  "notice": {
+    "de": "Öffentliches Test-Deployment auf Base Sepolia zur technischen Nachvollziehbarkeit und Validierung der GFC-Contract- und Transparenz-Infrastruktur. tGFC ist nicht der spätere Mainnet-GFC, besitzt keinen garantierten finanziellen Wert und ist keine Einzahlungsadresse. Der Token kann innerhalb technischer Testabläufe verwendet werden, ist jedoch kein Bestandteil eines aktiven öffentlichen Presales.",
+    "en": "Public test deployment on Base Sepolia for technical traceability and validation of the GFC contract and transparency infrastructure. tGFC is not the future mainnet GFC, has no guaranteed financial value and is not a deposit address. The token may be used within technical test flows but is not part of an active public presale."
+  }
+}

@@ -82,20 +82,18 @@ const server = http.createServer(async (req, res) => {
     const pathname = url.pathname;
 
     if (pathname === '/') {
-      res.writeHead(302, { location: '/en/explorer/' });
+      res.writeHead(302, { location: '/en/' });
       res.end();
       return;
     }
 
     if (pathname === '/en/' || pathname === '/en') {
-      res.writeHead(302, { location: 'https://globalfoundationcoin.org/en/' });
-      res.end();
+      serve(res, path.join(root, 'partials/en/explorer/explorer.html'));
       return;
     }
 
     if (pathname === '/de/' || pathname === '/de') {
-      res.writeHead(302, { location: 'https://globalfoundationcoin.org/de/' });
-      res.end();
+      serve(res, path.join(root, 'partials/de/explorer/explorer.html'));
       return;
     }
 
@@ -125,12 +123,18 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (pathname === '/de/explorer/' || pathname === '/de/explorer') {
-      serve(res, path.join(root, 'partials/de/explorer/explorer.html'));
+      res.writeHead(301, { location: '/de/' });
+      res.end();
       return;
     }
     if (pathname === '/en/explorer/' || pathname === '/en/explorer') {
-      serve(res, path.join(root, 'partials/en/explorer/explorer.html'));
+      res.writeHead(301, { location: '/en/' });
+      res.end();
       return;
+    }
+
+    if (pathname.startsWith('/contracts/base-sepolia/')) {
+      if (serve(res, path.join(root, pathname.replace(/^\//u, '')))) return;
     }
 
     const allowedPrefixes = ['/css/explorer/', '/js/explorer/', '/img/'];
@@ -146,8 +150,8 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(config.port, config.host, () => {
-  console.log(`GFC Accountability Explorer (integrated): http://${config.host}:${config.port}/en/explorer/`);
-  console.log(`German route: http://${config.host}:${config.port}/de/explorer/`);
+  console.log(`GFC Accountability Explorer: http://${config.host}:${config.port}/en/`);
+  console.log(`German route: http://${config.host}:${config.port}/de/`);
   console.log(`Data source mode: ${config.mode}${config.graph.configured ? ' (The Graph configured)' : ' (The Graph not configured)'}`);
   console.log(`Accountability Analyst: ${config.analyst.configured ? `configured (${config.analyst.model})` : 'not configured'}`);
 });
