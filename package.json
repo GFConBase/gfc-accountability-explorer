@@ -1,6 +1,6 @@
 {
   "name": "gfc-accountability-explorer",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "description": "ETHOnline 2026 Continuity repository for the live GFC Accountability Explorer and evidence-bounded Accountability Analyst.",

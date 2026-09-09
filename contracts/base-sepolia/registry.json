@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "registryId": "gfc-base-sepolia-contract-registry",
+  "registryUpdatedAt": "2026-08-23",
+  "localization": {
+    "supportedLanguages": [
+      "de",
+      "en"
+    ],
+    "localizedFields": [
+      "contracts[].displayName",
+      "contracts[].purpose",
+      "contracts[].shortNotice",
+      "externalDependencies[].displayName",
+      "externalDependencies[].purpose",
+      "externalDependencies[].shortNotice",
+      "systemRelationships[].targetLabel",
+      "notices"
+    ],
+    "technicalIdentifiersLanguageNeutral": true,
+    "fallbackLanguage": "en"
+  },
+  "network": {
+    "name": "Base Sepolia",
+    "displayName": "Base Sepolia Testnet",
+    "environment": "testnet",
+    "chainId": 84532,
+    "nativeAsset": "ETH",
+    "baseScanUrl": "https://sepolia.basescan.org",
+    "blockscoutUrl": "https://base-sepolia.blockscout.com"
+  },
+  "projectStatus": {
+    "developmentPhase": "public-testnet-testing",
+    "officialMainnetContractsPublished": false,
+    "activePublicMainnetPresale": false,
+    "externalAuditReportsPublished": false,
+    "walletConnectionRequiredForVerification": false
+  },
+  "contracts": [
+    {
+      "id": "gfc-token-pilot",
+      "order": 1,
+      "displayName": {
+        "de": "GFC Test-Token",
+        "en": "GFC Test Token"
+      },
+      "contractName": "GFCTestToken",
+      "contractType": "test-token",
+      "symbol": "tGFC",
+      "address": "0x7262Cca91938ede6bB6560F81104Aa410848e7f3",
+      "manifestUrl": "/contracts/base-sepolia/gfc-token-pilot/test-contract.json",
+      "status": {
+        "deployment": "deployed",
+        "lifecycle": "testing",
+        "source": "verified",
+        "verificationMatch": "exact-match",
+        "audit": "not-audited",
+        "verificationProvider": "BaseScan",
+        "verificationCheckedAt": "2026-08-06"
+      },
+      "classification": {
+        "currentReference": true,
+        "testnetOnly": true,
+        "officialMainnetContract": false,
+        "activePublicFundraisingContract": false,
+        "depositAddress": false,
+        "guaranteedFinancialValue": false
+      },
+      "purpose": {
+        "de": "Test-Token zur öffentlichen Prüfung der GFC-Tokenlogik, der On-Chain-Daten und der Transparenz-Infrastruktur.",
+        "en": "Test token for public validation of the GFC token logic, on-chain data and transparency infrastructure."
+      },
+      "shortNotice": {
+        "de": "Nicht der spätere Mainnet-GFC. Keine garantierte finanzielle Werthaltigkeit.",
+        "en": "Not the future mainnet GFC. No guaranteed financial value."
+      },
+      "explorerLinks": {
+        "baseScan": "https://sepolia.basescan.org/address/0x7262Cca91938ede6bB6560F81104Aa410848e7f3#code",
+        "blockscout": "https://base-sepolia.blockscout.com/address/0x7262Cca91938ede6bB6560F81104Aa410848e7f3"
+      }
+    },
+    {
+      "id": "gfc-mock-dai",
+      "order": 2,
+      "displayName": {
+        "de": "GFC Mock DAI",
+        "en": "GFC Mock DAI"
+      },
+      "contractName": "GFCMockDAI",
+      "contractType": "mock-payment-token",
+      "symbol": "mDAI",
+      "address": "0x99C9bB07485aCe095e4093F0C31711b3096aa06D",
+      "manifestUrl": "/contracts/base-sepolia/gfc-mock-dai/dai-contract.json",
+      "status": {
+        "deployment": "deployed",
+        "lifecycle": "testing",
+        "source": "verified",
+        "verificationMatch": "exact-match",
+        "audit": "not-audited",
+        "verificationProvider": "BaseScan",
+        "verificationCheckedAt": "2026-08-06"
+      },
+      "classification": {
+        "currentReference": true,
+        "testnetOnly": true,
+        "officialDaiContract": false,
+        "issuedByMakerDaoOrSky": false,
+        "officialMainnetContract": false,
+        "activePublicFundraisingContract": false,
+        "depositAddress": false,
+        "guaranteedFinancialValue": false
+      },
+      "purpose": {
+        "de": "Öffentlicher Base-Sepolia-Test-Token für die Prüfung des DAI-Zahlungswegs im GFC Test Presale.",
+        "en": "Public Base Sepolia test token for validating the DAI payment path of the GFC Test Presale."
+      },
+      "shortNotice": {
+        "de": "Kein offizieller DAI. Jede Wallet-Adresse kann einmal 10.000 mDAI für Tests beanspruchen.",
+        "en": "Not official DAI. Each wallet address can claim 10,000 mDAI once for testing."
+      },
+      "explorerLinks": {
+        "baseScan": "https://sepolia.basescan.org/address/0x99C9bB07485aCe095e4093F0C31711b3096aa06D#code",
+        "blockscout": "https://base-sepolia.blockscout.com/address/0x99C9bB07485aCe095e4093F0C31711b3096aa06D"
+      }
+    },
+    {
+      "id": "gfc-test-presale",
+      "order": 3,
+      "displayName": {
+        "de": "GFC Test Presale",
+        "en": "GFC Test Presale"
+      },
+      "contractName": "GFCTestPresale",
+      "contractType": "test-presale",
+      "address": "0xd03ebB0c507fe55F6B5F9A79076d8Ec259b47399",
+      "manifestUrl": "/contracts/base-sepolia/gfc-test-presale/presale-contract.json",
+      "status": {
+        "deployment": "deployed",
+        "lifecycle": "testing",
+        "runtimeStatusSource": "presaleState()",
+        "source": "verified",
+        "verificationMatch": "exact-match",
+        "audit": "not-audited",
+        "verificationProvider": "BaseScan",
+        "verificationCheckedAt": "2026-08-06"
+      },
+      "classification": {
+        "currentReference": true,
+        "testnetOnly": true,
+        "officialMainnetContract": false,
+        "publicTestingContract": true,
+        "activePublicMainnetPresale": false,
+        "depositAddress": false,
+        "testAssetsOnly": true,
+        "guaranteedFinancialValue": false
+      },
+      "purpose": {
+        "de": "Base-Sepolia-Testcontract für ETH-, Test-USDC- und mDAI-Zahlungen sowie die unmittelbare Verteilung von tGFC.",
+        "en": "Base Sepolia test contract for ETH, test USDC and mDAI payments with immediate distribution of tGFC."
+      },
+      "shortNotice": {
+        "de": "Kein aktiver öffentlicher Mainnet-Presale. Kein Soft Cap und kein Refund-Mechanismus.",
+        "en": "Not an active public mainnet presale. No soft cap or refund mechanism."
+      },
+      "explorerLinks": {
+        "baseScan": "https://sepolia.basescan.org/address/0xd03ebB0c507fe55F6B5F9A79076d8Ec259b47399#code",
+        "blockscout": "https://base-sepolia.blockscout.com/address/0xd03ebB0c507fe55F6B5F9A79076d8Ec259b47399"
+      }
+    }
+  ],
+  "externalDependencies": [
+    {
+      "id": "base-sepolia-eth",
+      "order": 1,
+      "displayName": {
+        "de": "Base Sepolia ETH",
+        "en": "Base Sepolia ETH"
+      },
+      "dependencyType": "native-network-asset",
+      "address": null,
+      "symbol": "ETH",
+      "decimals": 18,
+      "controlledByGfc": false,
+      "contractAddressApplicable": false,
+      "usedBy": [
+        "gfc-test-presale"
+      ],
+      "purpose": {
+        "de": "Natives Testnet-Asset für die Prüfung des ETH-Zahlungswegs.",
+        "en": "Native testnet asset used to validate the ETH payment path."
+      },
+      "shortNotice": {
+        "de": "Testnet-ETH besitzt keinen garantierten finanziellen Wert.",
+        "en": "Testnet ETH has no guaranteed financial value."
+      }
+    },
+    {
+      "id": "base-sepolia-test-usdc",
+      "order": 2,
+      "displayName": {
+        "de": "Base Sepolia Test-USDC",
+        "en": "Base Sepolia Test USDC"
+      },
+      "dependencyType": "external-payment-token",
+      "address": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+      "symbol": "USDC",
+      "decimals": 6,
+      "issuer": "Circle",
+      "controlledByGfc": false,
+      "contractAddressApplicable": true,
+      "usedBy": [
+        "gfc-test-presale"
+      ],
+      "purpose": {
+        "de": "Externer Base-Sepolia-Test-Token für die Prüfung des USDC-Zahlungswegs.",
+        "en": "External Base Sepolia test token used to validate the USDC payment path."
+      },
+      "shortNotice": {
+        "de": "Dieser Contract wurde nicht von GFC deployed und wird nicht von GFC kontrolliert.",
+        "en": "This contract was not deployed by GFC and is not controlled by GFC."
+      },
+      "explorerLinks": {
+        "baseScan": "https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+        "blockscout": "https://base-sepolia.blockscout.com/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e"
+      },
+      "officialIssuerTestnetAsset": true,
+      "issuerDocumentationUrl": "https://developers.circle.com/stablecoins/usdc-contract-addresses"
+    }
+  ],
+  "systemRelationships": [
+    {
+      "sourceId": "gfc-test-presale",
+      "relation": "distributes",
+      "targetType": "contract",
+      "targetId": "gfc-token-pilot"
+    },
+    {
+      "sourceId": "gfc-test-presale",
+      "relation": "accepts-payment-in",
+      "targetType": "external-dependency",
+      "targetId": "base-sepolia-eth"
+    },
+    {
+      "sourceId": "gfc-test-presale",
+      "relation": "accepts-payment-in",
+      "targetType": "external-dependency",
+      "targetId": "base-sepolia-test-usdc"
+    },
+    {
+      "sourceId": "gfc-test-presale",
+      "relation": "accepts-payment-in",
+      "targetType": "contract",
+      "targetId": "gfc-mock-dai"
+    },
+    {
+      "sourceId": "gfc-test-presale",
+      "relation": "forwards-payments-to",
+      "targetType": "address",
+      "targetAddress": "0xeD17f3a500f8d7C23Cfd5C6E8782f4bD914E4280",
+      "targetLabel": {
+        "de": "Fest konfigurierte Test-Treasury-Adresse",
+        "en": "Fixed Test Treasury Address"
+      }
+    }
+  ],
+  "notices": {
+    "de": "Diese Registry enthält ausschließlich öffentliche Base-Sepolia-Testreferenzen. Die gelisteten Contracts und Testnet-Assets sind keine offiziellen GFC-Mainnet-Contracts, keine garantierten Wertanlagen und kein Nachweis eines aktiven öffentlichen Mainnet-Presales. Die als verifiziert gekennzeichneten GFC-Contracts sind auf BaseScan als Exact Match verifiziert.\nDiese Source-Code-Verifikation bestätigt die Übereinstimmung des veröffentlichten Quellcodes mit dem Deployment, ersetzt jedoch kein unabhängiges Sicherheitsaudit.",
+    "en": "This registry contains public Base Sepolia test references only. The listed contracts and testnet assets are not official GFC mainnet contracts, guaranteed stores of value or evidence of an active public mainnet presale. GFC contracts marked as verified are verified as an Exact Match on BaseScan. Source-code verification confirms that the published source code matches the deployment but does not replace an independent security audit."
+  }
+}

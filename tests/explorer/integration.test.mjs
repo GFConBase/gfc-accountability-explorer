@@ -15,6 +15,9 @@ for (const [locale, file] of [['de', 'partials/de/explorer/explorer.html'], ['en
     assert.match(html, /0x7262Cca91938ede6bB6560F81104Aa410848e7f3/u);
     assert.match(html, /id="analyst-form"/u);
     assert.match(html, /id="analyst-result"/u);
+    assert.match(html, /id="references-grid"/u);
+    assert.match(html, new RegExp(`https://explorer\\.globalfoundationcoin\\.org/${locale}/`, 'u'));
+    assert.doesNotMatch(html, /https:\/\/globalfoundationcoin\.org\/(?:de|en)\/explorer\//u);
   });
 }
 
@@ -26,9 +29,11 @@ test('Explorer browser API is namespaced under /api/explorer', () => {
   assert.match(api, /analyst:/u);
 });
 
-test('Netlify routes expose canonical Explorer pages and API namespace', () => {
+test('Netlify routes expose canonical Explorer subdomain pages, legacy redirects and API namespace', () => {
   const redirects = fs.readFileSync(path.join(root, '_redirects'), 'utf8');
-  assert.match(redirects, /\/de\/explorer\/\s+\/partials\/de\/explorer\/explorer\.html\s+200!/u);
-  assert.match(redirects, /\/en\/explorer\/\s+\/partials\/en\/explorer\/explorer\.html\s+200!/u);
+  assert.match(redirects, /https:\/\/explorer\.globalfoundationcoin\.org\/de\/\s+\/partials\/de\/explorer\/explorer\.html\s+200!/u);
+  assert.match(redirects, /https:\/\/explorer\.globalfoundationcoin\.org\/en\/\s+\/partials\/en\/explorer\/explorer\.html\s+200!/u);
+  assert.match(redirects, /\/de\/explorer\/\s+https:\/\/explorer\.globalfoundationcoin\.org\/de\/\s+301!/u);
+  assert.match(redirects, /\/en\/explorer\/\s+https:\/\/explorer\.globalfoundationcoin\.org\/en\/\s+301!/u);
   assert.match(redirects, /\/api\/explorer\/\*\s+\/\.netlify\/functions\/explorer-api\?route=:splat\s+200!/u);
 });

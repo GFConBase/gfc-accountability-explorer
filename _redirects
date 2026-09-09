@@ -1,21 +1,27 @@
 ###############################################
 # STANDALONE ETHONLINE REPOSITORY ROUTING
+# Canonical public Explorer: explorer.globalfoundationcoin.org/{en,de}/
 ###############################################
 
-# Public production alias. In the unified GFC site this domain is attached to
-# the existing Netlify project and keeps the clean root URL.
-https://explorer.globalfoundationcoin.org/   /partials/en/explorer/explorer.html   200!
+# Host-specific canonical language routes.
+https://explorer.globalfoundationcoin.org/      https://explorer.globalfoundationcoin.org/en/  301!
+https://explorer.globalfoundationcoin.org/en/  /partials/en/explorer/explorer.html             200!
+https://explorer.globalfoundationcoin.org/de/  /partials/de/explorer/explorer.html             200!
 
 # Same-origin read-only Explorer API.
 /api/explorer/*      /.netlify/functions/explorer-api?route=:splat       200!
 
-# Canonical language routes.
-/de/explorer/index.html   /de/explorer/                                  301!
-/de/explorer/             /partials/de/explorer/explorer.html             200!
+# Canonical language routes for standalone preview/deploys.
+/en/index.html       /en/                                             301!
+/en/                 /partials/en/explorer/explorer.html               200!
+/de/index.html       /de/                                             301!
+/de/                 /partials/de/explorer/explorer.html               200!
 
-/en/explorer/index.html   /en/explorer/                                  301!
-/en/explorer/             /partials/en/explorer/explorer.html             200!
+# Legacy integrated-site Explorer paths redirect to the canonical subdomain.
+/en/explorer/index.html  https://explorer.globalfoundationcoin.org/en/  301!
+/en/explorer/            https://explorer.globalfoundationcoin.org/en/  301!
+/de/explorer/index.html  https://explorer.globalfoundationcoin.org/de/  301!
+/de/explorer/            https://explorer.globalfoundationcoin.org/de/  301!
 
-# A standalone deployment of this focused repository opens the English Explorer
-# at its root. The production GFC project keeps its own main-site root behavior.
-/                       /partials/en/explorer/explorer.html                200!
+# Standalone deployment root defaults to English.
+/                       /partials/en/explorer/explorer.html              200!

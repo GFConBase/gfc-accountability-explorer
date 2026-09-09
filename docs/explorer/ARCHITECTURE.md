@@ -8,6 +8,7 @@
 /partials/de/explorer/explorer.html    German Explorer page
 /partials/en/explorer/explorer.html    English Explorer page
 /lib/explorer/                         server-side provider/model/API logic
+/contracts/base-sepolia/               published pre-existing GFC test-reference registry
 /lib/explorer/analyst/                 evidence-bounded AI layer
 /netlify/functions/explorer-api.mjs    Netlify same-origin API adapter
 /subgraph/explorer/                    GFC Transfer Subgraph source
@@ -79,6 +80,18 @@ Normal Explorer behavior:
 2. transaction detail composes indexed tGFC transfer evidence with RPC or Blockscout execution evidence where available;
 3. all source provenance is displayed explicitly;
 4. `DATA_SOURCE_MODE=graph` can be used to force Graph-only behavior for normal Explorer reads.
+
+
+## GFC reference boundary
+
+The published Base Sepolia registry and its registry-linked contract manifests are pre-existing GFC data and remain provenance-distinct from live chain reads. The Explorer adds a read-only investigation surface around that data:
+
+- known reference listing and detail;
+- address classification through Base Sepolia JSON-RPC;
+- a bounded live GFC snapshot for selected raw reads;
+- explicit `null`/unavailable values when a live read cannot be completed.
+
+The registry and manifests may describe a known testnet reference, deployment metadata, permissions and configured read surfaces, but they cannot substitute for unavailable live state. They also cannot upgrade a testnet reference into a mainnet deployment, active public presale or external audit.
 
 ## Accountability Analyst architecture
 

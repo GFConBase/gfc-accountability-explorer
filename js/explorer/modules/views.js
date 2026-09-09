@@ -130,3 +130,111 @@ export function renderAnalyst(container, result) {
 
   container.append(meta, answerCard, grid, scope);
 }
+
+function localized(value) {
+  if (!value || typeof value !== 'object') return value || '';
+  const locale = document.documentElement.lang === 'de' ? 'de' : 'en';
+  return value[locale] || value.en || value.de || '';
+}
+
+function referenceBadge(reference) {
+  const type = reference.referenceType === 'address' || reference.contractType === 'wallet' ? t('wallet') : t('contract');
+  return el('span', { className: 'verification-badge state-partial', text: type });
+}
+
+export function renderReferences(container, references = []) {
+  clear(container);
+  for (const reference of references) {
+    const article = el('article', { className: 'reference-card' });
+    const header = el('div', { className: 'reference-card-header' }, [
+      referenceBadge(reference),
+      el('span', { className: 'verification-badge state-verified', text: t('knownGfcReference') }),
+    ]);
+    const name = el('h3', { text: localized(reference.displayName) || reference.id });
+    const purpose = el('p', { text: localized(reference.purpose) || t('unavailable') });
+    const address = el('p', { className: 'mono break-value reference-address', text: reference.address });
+    const actions = el('div', { className: 'reference-actions' }, [
+      el('button', { className: 'button-secondary', text: t('technicalDetails'), attrs: { type: 'button', 'data-reference': reference.id } }),
+      externalLink(reference.explorerLinks?.baseScan || `${BASESCAN}/address/${reference.address}`, 'BaseScan', 'text-link'),
+    ]);
+    article.append(header, name, purpose, address, actions);
+    container.append(article);
+  }
+}
+
+export function renderAddress(container, result) {
+  clear(container);
+  const grid = el('div', { className: 'transaction-grid address-grid' });
+  const items = [
+    [t('network'), `${result.network} · Chain ${result.chainId}`],
+    [t('referenceType'), result.kind || t('unavailable')],
+    [t('dataSource'), result.sourceLabel || t('unavailable')],
+    [t('block'), result.latestBlock ? formatInteger(result.latestBlock) : t('unavailable')],
+  ];
+  for (const [label, value] of items) grid.append(el('div', {}, [el('span', { text: label }), el('strong', { text: value })]));
+  const card = el('article', { className: 'transaction-meta-card' }, [
+    el('p', { className: 'card-kicker', text: t('liveClassification') }),
+    el('h3', { text: result.knownGfcReference ? t('knownGfcReference') : t('addressRecord') }),
+    el('p', { className: 'mono break-value', text: result.address }),
+    grid,
+  ]);
+  if (result.warning) card.append(el('p', { className: 'boundary-note', text: result.warning }));
+  if (result.gfcReference) {
+    card.append(el('div', { className: 'reference-actions' }, [
+      el('button', { className: 'button-secondary', text: t('technicalDetails'), attrs: { type: 'button', 'data-reference': result.gfcReference.id } }),
+      externalLink(`${BASESCAN}/address/${result.address}`, t('openBasescan'), 'text-link'),
+    ]));
+  }
+  container.append(card);
+}
+
+export function renderReference(container, reference) {
+  clear(container);
+  const card = el('article', { className: 'transaction-meta-card' });
+  card.append(
+    el('div', { className: 'reference-card-header' }, [referenceBadge(reference), el('span', { className: 'verification-badge state-verified', text: 'BASE SEPOLIA · TESTNET' })]),
+    el('p', { className: 'card-kicker', text: t('referenceRecord') }),
+    el('h3', { text: localized(reference.displayName) || reference.id }),
+    el('p', { text: localized(reference.purpose) || t('unavailable') }),
+    el('p', { className: 'mono break-value', text: reference.address }),
+  );
+
+  const grid = el('div', { className: 'transaction-grid reference-detail-grid' });
+  const items = [
+    [t('network'), reference.network?.name || 'Base Sepolia'],
+    [t('lifecycle'), reference.status?.lifecycle || t('unavailable')],
+    ['Source verification', reference.status?.source || t('unavailable')],
+    ['Audit', reference.status?.audit || (reference.referenceType === 'address' ? t('unavailable') : t('unavailable'))],
+  ];
+  for (const [label, value] of items) grid.append(el('div', {}, [el('span', { text: label }), el('strong', { text: value })]));
+  card.append(grid);
+
+  if (reference.deployment) {
+    const deployment = el('div', { className: 'reference-structured' }, [
+      el('h4', { text: 'Deployment & provenance' }),
+      el('pre', { className: 'reference-json', text: JSON.stringify(reference.deployment, null, 2) }),
+    ]);
+    card.append(deployment);
+  }
+  if (reference.technical) {
+    card.append(el('div', { className: 'reference-structured' }, [
+      el('h4', { text: 'Properties & capabilities' }),
+      el('pre', { className: 'reference-json', text: JSON.stringify(reference.technical, null, 2) }),
+    ]));
+  }
+  if (reference.relationships?.length) {
+    card.append(el('div', { className: 'reference-structured' }, [
+      el('h4', { text: 'Relationships & dependencies' }),
+      el('pre', { className: 'reference-json', text: JSON.stringify(reference.relationships, null, 2) }),
+    ]));
+  }
+
+  const transparencyUrl = document.documentElement.lang === 'de'
+    ? 'https://globalfoundationcoin.org/de/transparenz/#references'
+    : 'https://globalfoundationcoin.org/en/transparency/#references';
+  card.append(el('div', { className: 'reference-actions' }, [
+    externalLink(reference.explorerLinks?.baseScan || `${BASESCAN}/address/${reference.address}`, t('openBasescan'), 'button-secondary'),
+    externalLink(transparencyUrl, t('openTransparency'), 'text-link'),
+  ]));
+  container.append(card);
+}

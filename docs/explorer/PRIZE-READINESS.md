@@ -1,6 +1,6 @@
 # ETHOnline 2026 / The Graph Prize Readiness
 
-Status synchronized on **2026-09-07**.
+Status synchronized on **2026-09-08**.
 
 ## Continuity status
 
@@ -19,6 +19,8 @@ Validated production behavior includes:
 - real Base Sepolia transaction lookup;
 - historical Blockscout fallback with explicit provenance;
 - Accountability Analyst configured and returning evidence-bounded output;
+- canonical Explorer subdomain language routes and legacy redirects;
+- published GFC test references available without upgrading mainnet/presale/audit claims;
 - existing GFC website routes remaining functional after integration.
 
 ## The Graph status
@@ -72,13 +74,13 @@ The expected evidence discipline is:
 
 ## Repository synchronization status
 
-The synchronized standalone ETHOnline repository state was committed and published on **2026-09-07**.
+The standalone ETHOnline repository package in this synchronization reflects the post-**2026-09-08** Explorer state. Publication to GitHub remains a repository action separate from this local package.
 
 Current public repository:
 
 `https://github.com/GFConBase/gfc-accountability-explorer`
 
-The repository reflects the production-integrated Explorer architecture and retains the existing Git history.
+The public repository is the Continuity history surface. This synchronized package is prepared as the next repository state; publication/commit remains a separate action and must not be implied by the ZIP itself.
 
 ## Remaining submission work
 
